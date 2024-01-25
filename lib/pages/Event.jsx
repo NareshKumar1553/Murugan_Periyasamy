@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, StatusBar, Alert } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import firestore from '@react-native-firebase/firestore';
+
 
 const Event = ({navigation}) => {
     function AlertButton(){
@@ -33,6 +35,7 @@ const Event = ({navigation}) => {
     const [pagali, setPagali] = useState(false);
     const [female, setFemale] = useState(false);
 
+
     useEffect(() => {
         AsyncStorage.getItem('eventName').then((value) => {
             console.log('Text:', value);
@@ -51,7 +54,34 @@ const Event = ({navigation}) => {
         );
         });
 
+        if(pagali == 'true'){
+            console.log("Pagali is true");
+            fetchPangaali();
+        }
     }, []);
+
+    const fetchPangaali = async () => {
+        try {
+            const pangaliParentSnapshot = await firestore()
+                .collection('PangaliParent')
+                .get();
+
+            pangaliParentSnapshot.forEach(async (doc) => {
+                const data = doc.data();
+                // Add the data to the newCollection with an additional field and custom document name
+                console.log(data.name);
+                await firestore().collection(eventName).doc(data.name).set({
+                    ...data,
+                    tax: 0
+                });
+            });
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+
+
+
     return (
         <View style={style.container}>
             <StatusBar backgroundColor='#f9f5fa' barStyle="dark-content" />
@@ -60,18 +90,22 @@ const Event = ({navigation}) => {
             <Text style={style.text}>Event Name: {eventName}</Text>
             
             {pagali=='true' && 
-            <TouchableOpacity onPress={()=>{navigation.push('test1')}} style={style.button}>
+            <TouchableOpacity onPress={()=>{navigation.push('EventPangali',{eventName : eventName})}} style={style.button}>
                 <Text style={style.textTamil}>பங்காளி பட்டியல்</Text>
                 <Text style={style.text}>Pangali List</Text>
             </TouchableOpacity>
             }
             {female=='true' && 
-            <TouchableOpacity onPress={()=>{navigation.push('test1')}} style={style.button}>
+            <TouchableOpacity onPress={()=>{navigation.push('#')}} style={style.button}>
                 <Text style={style.textTamil}>பெண்கள் பட்டியல் </Text>
                 <Text style={style.text}>Female List</Text>
             </TouchableOpacity>
             }
             
+            <TouchableOpacity onPress={()=>{navigation.push('test2')}} style={style.button}>
+                <Text style={style.textTamil}>பெண்கள் பட்டியல் </Text>
+                <Text style={style.text}>Testing</Text>
+            </TouchableOpacity>
 
             <TouchableOpacity onPress={()=>{AlertButton()}} style={style.deleteButton}>
                 <Text style={style.buttonText}>Delete Event</Text>

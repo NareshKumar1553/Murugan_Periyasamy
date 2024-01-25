@@ -9,6 +9,8 @@ import LockPage from "../pages/lock";
 import NewEvent from "../pages/NewEvent";
 import Event from "../pages/Event";
 import PangaliList from "../pages/PangaliList";
+import MyPage from "../testing/test2";
+import EventPangaliList from "../pages/Event/EventPangali";
 
 
 const Stack = createNativeStackNavigator();
@@ -26,6 +28,8 @@ export default function StackNavigation() {
                 <Stack.Screen name="NewEvent" component={NewEvent} />
                 <Stack.Screen name="Event" component={Event} />
                 <Stack.Screen name="PangaliList" component={PangaliList} />
+                <Stack.Screen name="test2" component={MyPage} />
+                <Stack.Screen name="EventPangali" component={EventPangaliList} />
             </Stack.Navigator>
         </NavigationContainer>
     );

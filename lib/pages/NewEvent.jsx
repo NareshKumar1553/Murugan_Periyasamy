@@ -44,6 +44,7 @@ const NewEvent = ({navigation}) => {
         }
     };
 
+
     return (
         <View style={style.container}>
             <StatusBar backgroundColor='#d3f0db' barStyle="dark-content" />
