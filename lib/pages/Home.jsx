@@ -8,12 +8,12 @@ const HomeScreen = ({navigation}) => {
             <StatusBar backgroundColor='#f9f5fa' barStyle="dark-content" />
             <Text style={style.header}>வணக்கம்</Text>
             
-            <TouchableOpacity onPress={()=>{navigation.push('test1')}} style={style.button}>
+            <TouchableOpacity onPress={()=>{navigation.push('#')}} style={style.button}>
                 <Text style={style.textTamil}>பங்காளி பட்டியல்</Text>
                 <Text style={style.text}>Pangali List</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={()=>{navigation.push('test1')}} style={style.button}>
+            <TouchableOpacity onPress={()=>{navigation.push('#')}} style={style.button}>
                 <Text style={style.textTamil}>பெண்கள் பட்டியல் </Text>
                 <Text style={style.text}>Female List</Text>
             </TouchableOpacity>
