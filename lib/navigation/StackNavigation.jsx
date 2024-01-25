@@ -8,6 +8,7 @@ import ReadDataPage from "../testing/test1";
 import LockPage from "../pages/lock";
 import NewEvent from "../pages/NewEvent";
 import Event from "../pages/Event";
+import PangaliList from "../pages/PangaliList";
 
 
 const Stack = createNativeStackNavigator();
@@ -24,6 +25,7 @@ export default function StackNavigation() {
                 <Stack.Screen name="test1" component={ReadDataPage} />
                 <Stack.Screen name="NewEvent" component={NewEvent} />
                 <Stack.Screen name="Event" component={Event} />
+                <Stack.Screen name="PangaliList" component={PangaliList} />
             </Stack.Navigator>
         </NavigationContainer>
     );

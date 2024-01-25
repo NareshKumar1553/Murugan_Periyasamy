@@ -8,7 +8,7 @@ const HomeScreen = ({navigation}) => {
             <StatusBar backgroundColor='#f9f5fa' barStyle="dark-content" />
             <Text style={style.header}>வணக்கம்</Text>
             
-            <TouchableOpacity onPress={()=>{navigation.push('#')}} style={style.button}>
+            <TouchableOpacity onPress={()=>{navigation.push('PangaliList')}} style={style.button}>
                 <Text style={style.textTamil}>பங்காளி பட்டியல்</Text>
                 <Text style={style.text}>Pangali List</Text>
             </TouchableOpacity>
@@ -21,6 +21,11 @@ const HomeScreen = ({navigation}) => {
             <TouchableOpacity onPress={()=>{navigation.push('NewEvent')}} style={style.button}>
                 <Text style={style.textTamil}>புதிய நிகழ்வு</Text>
                 <Text style={style.text}>New Event</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={()=>{navigation.push('test1')}} style={style.button}>
+                <Text style={style.textTamil}>புதிய நிகழ்வு</Text>
+                <Text style={style.text}>Test</Text>
             </TouchableOpacity>
         </View>
     );
