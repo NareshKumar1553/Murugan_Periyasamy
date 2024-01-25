@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "435464759466",
+    "project_id": "sriperiyasamy-96",
+    "storage_bucket": "sriperiyasamy-96.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:435464759466:android:da5d08009216195382c8d3",
+        "android_client_info": {
+          "package_name": "com.murugan_periyasamy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "435464759466-5nbj4j4d9tvgabqpkcl26d7h17vuk3ms.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8nYCN_Q1q7lmvS9zG0zYkUe3IwJ9k7To"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "435464759466-5nbj4j4d9tvgabqpkcl26d7h17vuk3ms.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
