@@ -11,6 +11,7 @@ import Event from "../pages/Event";
 import PangaliList from "../pages/PangaliList";
 import MyPage from "../testing/test2";
 import EventPangaliList from "../pages/Event/EventPangali";
+import EventPangaliDetail from "../pages/Event/EventPangaliDetail";
 
 
 const Stack = createNativeStackNavigator();
@@ -30,6 +31,7 @@ export default function StackNavigation() {
                 <Stack.Screen name="PangaliList" component={PangaliList} />
                 <Stack.Screen name="test2" component={MyPage} />
                 <Stack.Screen name="EventPangali" component={EventPangaliList} />
+                <Stack.Screen name="EventPangaliDetail" component={EventPangaliDetail} />
             </Stack.Navigator>
         </NavigationContainer>
     );

@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet, StatusBar, ScrollView } from "react-native";
 import firestore from "@react-native-firebase/firestore";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 const EventPangaliList = ({ navigation,route }) => {
     const [data, setData] = React.useState([]);
@@ -37,9 +37,11 @@ const EventPangaliList = ({ navigation,route }) => {
         <Text style={style.header}>பங்காளி பட்டியல்</Text>
         
         {data.map((item) => (
+
+            console.log("Item : ", item),
             <TouchableOpacity
             onPress={() => {
-                navigation.push("Event", {
+                navigation.push("EventPangaliDetail", {
                 event: item,
                 });
             }}
