@@ -23,10 +23,10 @@ const HomeScreen = ({navigation}) => {
                 <Text style={style.text}>New Event</Text>
             </TouchableOpacity>
 
-            {/* <TouchableOpacity onPress={()=>{navigation.push('test1')}} style={style.button}>
-                <Text style={style.textTamil}>புதிய நிகழ்வு</Text>
-                <Text style={style.text}>Test</Text>
-            </TouchableOpacity> */}
+            <TouchableOpacity onPress={()=>{navigation.push('EventList')}} style={style.button}>
+                <Text style={style.textTamil}>அனைத்து நிகழ்வுகளும்</Text>
+                <Text style={style.text}>All Events</Text>
+            </TouchableOpacity>
         </View>
     );
 };
@@ -47,7 +47,7 @@ const style = StyleSheet.create({
         textAlign: 'center',
         marginTop: 0,
         color:'black',
-        textDecorationLine: 'underline',
+        
     },
     textTamil: {
         fontSize: 20,
@@ -57,7 +57,7 @@ const style = StyleSheet.create({
         marginLeft: 16,
         marginRight: 16,
         color:'black',
-        textDecorationLine: 'underline',
+        
     },
     text: {
         fontSize: 24,

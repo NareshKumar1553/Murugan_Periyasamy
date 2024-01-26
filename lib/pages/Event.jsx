@@ -38,6 +38,7 @@ const Event = ({navigation}) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+       
         AsyncStorage.getItem('eventName').then((value) => {
             console.log('Text:', value);
             setEventName(value);
@@ -79,9 +80,22 @@ const Event = ({navigation}) => {
                     tax: 0
                 });
             });
-            setLoading(false);
+            // setLoading(false);
         } catch (error) {
             console.error('Error fetching data:', error);
+        }
+
+        try{
+            const pangaliSnapshot = await firestore()
+            .collection('events')
+            .doc(eventName)
+            .set({
+                name: eventName,
+            });
+            setLoading(false);
+        }
+        catch (error) {
+            console.error('Error Adding data:', error);
         }
     }
 

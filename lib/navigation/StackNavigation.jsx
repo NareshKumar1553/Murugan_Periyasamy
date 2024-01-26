@@ -13,6 +13,8 @@ import EventPangaliDetail from "../pages/Event/EventPangaliDetail";
 import GenerateList from "../pages/GenerateList";
 import PangaliDetail from "../pages/PangaliDetails";
 import ErrorPage from "../pages/Developer";
+import CollectionNamesPage from "../testing/test1";
+import EventList from "../pages/EventList";
 
 
 
@@ -35,6 +37,9 @@ export default function StackNavigation() {
                 <Stack.Screen name="GenerateList" component={GenerateList}  />
                 <Stack.Screen name="PangaliDetails" component={PangaliDetail} />
                 <Stack.Screen name="#" component={ErrorPage} />
+                <Stack.Screen name="EventList" component={EventList} />
+
+                
             </Stack.Navigator>
         </NavigationContainer>
     );

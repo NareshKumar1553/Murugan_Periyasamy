@@ -26,7 +26,18 @@ const EventPangaliDetail = ({ navigation,route }) => {
             await firestore().collection(eventName).doc(key).update({
                 tax: taxInput
             });
+
             console.log("Tax updated successfully!");
+            
+            // Add log to the database
+            await firestore().collection(eventName).doc(key).collection('log').add({
+                log: 'Tax updated to ' + taxInput ,
+                timestamp: firestore.FieldValue.serverTimestamp()
+            });
+
+
+            console.log("Log added successfully!");
+            
             Alert.alert(
                 'Tax updated successfully!',
                 '',
