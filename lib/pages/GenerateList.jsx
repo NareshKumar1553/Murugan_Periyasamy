@@ -4,9 +4,12 @@ import XLSX from 'xlsx';
 import RNFS from 'react-native-fs';
 import firestore from '@react-native-firebase/firestore';
 
-const TestPage = () => {
+const GenerateList = ({route, navigation}) => {
     const [data, setData] = useState([]);
 
+    const eventName = route.params.eventName;
+
+    console.log("Event Name : ", eventName);
     useEffect(() => {
         fetchData();
     }, []);
@@ -22,8 +25,8 @@ const TestPage = () => {
 
     const saveExcelFile = async (excelData) => {
         console.log('Saving excel file...');
-        const currentDateTime = new Date().toISOString().replace(/[-:.]/g, '');
-        const fileName = `data_${currentDateTime}.xlsx`;
+        const currentDateTime = eventName+new Date().toISOString().replace(/[-:.]/g, '');
+        const fileName = `${currentDateTime}.xlsx`;
         const path = RNFS.DocumentDirectoryPath + `/${fileName}`;
         await RNFS.writeFile(path, excelData, 'base64'); // Change encoding type to 'base64'
         const downloadPath = RNFS.DownloadDirectoryPath + `/${fileName}`;
@@ -40,6 +43,7 @@ const TestPage = () => {
             ],
             { cancelable: false },
         );
+        navigation.pop();
     }; 
     
 
@@ -63,7 +67,7 @@ const TestPage = () => {
     );
 };
 
-export default TestPage;
+export default GenerateList;
 
 
 const style = StyleSheet.create({

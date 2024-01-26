@@ -47,7 +47,7 @@ const EventPangaliList = ({ navigation,route }) => {
         return (
             <View style={style.loading}>
                 <ActivityIndicator size="large" color="#0000ff" />
-                <Text>Loading...</Text>
+                <Text style={style.loadingText}>Loading...</Text>
             </View>
         );
     }
@@ -60,7 +60,7 @@ const EventPangaliList = ({ navigation,route }) => {
         <Text style={style.header}>பங்காளி பட்டியல்</Text>
 
         <View>
-            <TouchableOpacity onPress={()=>{navigation.push('GenerateList')}} style={style.generateButton}>
+            <TouchableOpacity onPress={()=>{navigation.push('GenerateList',{eventName: eventName})}} style={style.generateButton}>
                 <Text style={style.generateButtonText}>Generate List</Text>
             </TouchableOpacity>
 
@@ -174,6 +174,7 @@ const style = StyleSheet.create({
         paddingTop:16,
         backgroundColor: '#f9f5fa',
     },
+    
     generateButton:{
         alignItems: 'center',
         backgroundColor: '#DDDDDD',
@@ -202,6 +203,13 @@ const style = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    loadingText: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginTop: 16,
+        color:'black',
     },
     filterContainer: {
         flexDirection: 'row',

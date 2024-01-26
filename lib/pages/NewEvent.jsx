@@ -22,6 +22,15 @@ const NewEvent = ({navigation}) => {
     };
 
     const handleSave = async () => {
+        if(text.length == 0){
+            alert("Error : Enter the Event Name");
+            return;
+        }
+        if(!isChecked1 && !isChecked2){
+            alert("Select the List");
+            return;
+        }
+
         try {
             // Store the text and checkbox value in AsyncStorage
             await AsyncStorage.setItem('eventName', text);
@@ -47,7 +56,7 @@ const NewEvent = ({navigation}) => {
 
     return (
         <View style={style.container}>
-            <StatusBar backgroundColor='#d3f0db' barStyle="dark-content" />
+            <StatusBar backgroundColor='#fafafa' barStyle="dark-content" />
 
             <Text style={style.text}>Enter the Event Name</Text>
             <Text style={style.textTamil}>புதிய நிகழ்வு பெயர்</Text>
@@ -58,7 +67,7 @@ const NewEvent = ({navigation}) => {
                 style={style.input}
             />
             <Text style={style.text}>Pangali List</Text>
-            <CheckBox value={isChecked1} onValueChange={handleCheckbox1Change} />
+            <CheckBox value={isChecked1} onValueChange={handleCheckbox1Change} style={style.CheckBox}/>
             <Text style={style.text}>Female List</Text>
             <CheckBox value={isChecked2} onValueChange={handleCheckbox2Change} style={style.CheckBox}/>
             <TouchableOpacity onPress={handleSave} style={style.button}>
@@ -77,14 +86,14 @@ const style = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         padding: 16,
-        backgroundColor:'#d3f0db'
+        backgroundColor:'#fafafa'
     },
     input: {
         width: 300,
         height: 50,
         padding: 10,
         marginBottom: 10,
-        backgroundColor: '#97f7b0',
+        backgroundColor: '#d5edc7',
         borderRadius: 15,
         fontSize: 18,
         color:'black',
@@ -92,13 +101,13 @@ const style = StyleSheet.create({
     CheckBox: {
         padding: 10,
         marginBottom: 10,
-        backgroundColor: '#d3f0db',
+        backgroundColor: '#d5edc7',
         borderRadius: 15,
         fontSize: 18,
         color:'black',
     },
     button: {
-        backgroundColor: '#97f7b0',
+        backgroundColor: '#d5edc7',
         borderRadius: 25,
         justifyContent:'center',
         alignItems:'center',

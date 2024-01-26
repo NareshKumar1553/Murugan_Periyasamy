@@ -125,11 +125,6 @@ const Event = ({navigation}) => {
             </TouchableOpacity>
             }
             
-            <TouchableOpacity onPress={()=>{navigation.push('test2')}} style={style.button}>
-                <Text style={style.textTamil}>Testing Purpose</Text>
-                <Text style={style.text}>Testing</Text>
-            </TouchableOpacity>
-
             <TouchableOpacity onPress={()=>{AlertButton()}} style={style.deleteButton}>
                 <Text style={style.buttonText}>Delete Event</Text>
             </TouchableOpacity>
