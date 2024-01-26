@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, StatusBar, Alert } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, StatusBar, Alert, ActivityIndicator } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import firestore from '@react-native-firebase/firestore';
 
 
 const Event = ({navigation}) => {
     function AlertButton(){
-        console.log("Alert Button");
+        console.log("Delete Button");
 
         Alert.alert(
             "Delete Event",
@@ -35,12 +35,13 @@ const Event = ({navigation}) => {
     const [pagali, setPagali] = useState(false);
     const [female, setFemale] = useState(false);
 
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         AsyncStorage.getItem('eventName').then((value) => {
             console.log('Text:', value);
             setEventName(value);
-
+        });
         AsyncStorage.getItem('pangali').then((value) => {
             console.log('Pagali :', value);
             setPagali(value);
@@ -52,15 +53,18 @@ const Event = ({navigation}) => {
             setFemale(value);
         }
         );
-        });
+        
 
         if(pagali == 'true'){
             console.log("Pagali is true");
             fetchPangaali();
         }
+        setLoading(false);
+
     }, []);
 
     const fetchPangaali = async () => {
+        console.log("Fetch Pangali");
         try {
             const pangaliParentSnapshot = await firestore()
                 .collection('PangaliParent')
@@ -69,23 +73,42 @@ const Event = ({navigation}) => {
             pangaliParentSnapshot.forEach(async (doc) => {
                 const data = doc.data();
                 // Add the data to the newCollection with an additional field and custom document name
-                console.log(data.name);
+                console.log("Data Name : ",data.name);
                 await firestore().collection(eventName).doc(data.name).set({
                     ...data,
                     tax: 0
                 });
             });
+            setLoading(false);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     }
 
+    useEffect(() => {
+        if (pagali == 'true') {
+            fetchPangaali();
+        }
+    }, [pagali]);
 
+    if (loading) {
+        return (
+            <View style={style.loading}>
+                <ActivityIndicator size="large" color="#0000ff" />
+                <Text>Loading...</Text>
+            </View>
+        );
+    }
 
     return (
+
+        
         <View style={style.container}>
             <StatusBar backgroundColor='#f9f5fa' barStyle="dark-content" />
-
+            {loading ? (
+                <ActivityIndicator size="large" color="black" />
+            ) : (
+                <View>
             <Text style={style.textTamil}>நிகழ்வு பெயர்: {eventName}</Text>
             <Text style={style.text}>Event Name: {eventName}</Text>
             
@@ -103,13 +126,15 @@ const Event = ({navigation}) => {
             }
             
             <TouchableOpacity onPress={()=>{navigation.push('test2')}} style={style.button}>
-                <Text style={style.textTamil}>பெண்கள் பட்டியல் </Text>
+                <Text style={style.textTamil}>Testing Purpose</Text>
                 <Text style={style.text}>Testing</Text>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={()=>{AlertButton()}} style={style.deleteButton}>
                 <Text style={style.buttonText}>Delete Event</Text>
             </TouchableOpacity>
+            </View>
+            )}
         </View>
     );
 }

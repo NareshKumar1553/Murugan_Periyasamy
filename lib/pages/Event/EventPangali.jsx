@@ -1,11 +1,12 @@
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet, StatusBar, ScrollView } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, StatusBar, ScrollView, ActivityIndicator } from "react-native";
 import firestore from "@react-native-firebase/firestore";
 
 
 const EventPangaliList = ({ navigation,route }) => {
     const [data, setData] = React.useState([]);
-    // const [eventName, setEventName] = React.useState('');
+    const [isLoading, setLoading] = React.useState(true);
+    const [filteredData, setFilteredData] = React.useState([]);
 
     React.useEffect(() => {
        
@@ -23,22 +24,127 @@ const EventPangaliList = ({ navigation,route }) => {
                 key: documentSnapshot.id,
             });
             });
-    
+            setLoading(false);
             setData(data);
+            setFilteredData(data);
         });
+        
     
         // Unsubscribe from events when no longer in use
-        // return () => subscriber();
+        return () => subscriber();
     }, []);
+
+    const handleFilter = (ratio) => {
+        if (ratio === "all") {
+            setFilteredData(data);
+        } else {
+            const filtered = data.filter((item) => item.city === ratio);
+            setFilteredData(filtered);
+        }
+    };
+
+    if (isLoading) {
+        return (
+            <View style={style.loading}>
+                <ActivityIndicator size="large" color="#0000ff" />
+                <Text>Loading...</Text>
+            </View>
+        );
+    }
     
     return (
         <ScrollView contentContainerStyle={{ alignItems: 'center' }} style={style.container}>
         <StatusBar backgroundColor="#f9f5fa" barStyle="dark-content" />
-        <Text style={style.header}>பங்காளி பட்டியல்</Text>
-        
-        {data.map((item) => (
 
-            console.log("Item : ", item),
+        <Text style={style.header}>Event Name : {eventName}</Text>
+        <Text style={style.header}>பங்காளி பட்டியல்</Text>
+
+        <View>
+            <TouchableOpacity onPress={()=>{navigation.push('GenerateList')}} style={style.generateButton}>
+                <Text style={style.generateButtonText}>Generate List</Text>
+            </TouchableOpacity>
+
+        </View>
+
+        <ScrollView
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={style.scrollViewContent}
+            
+        >
+        <View style={style.item}>
+            <TouchableOpacity onPress={() => handleFilter("all")} style={style.filterButton}>
+                <Text style={style.filterButtonText}>All</Text>
+            </TouchableOpacity>
+        </View>
+        <View style={style.item}>
+            <TouchableOpacity onPress={() => handleFilter("சிங்களாந்தபுரம்")} style={style.filterButton}>
+                <Text style={style.filterButtonText}>Singalandapuram</Text>
+            </TouchableOpacity>
+        </View>
+        <View style={style.item}>
+            <TouchableOpacity onPress={() => handleFilter("தொட்டியம்")} style={style.filterButton}>
+                <Text style={style.filterButtonText}>Thottiyam</Text>
+            </TouchableOpacity>
+        </View>
+        <View style={style.item}>
+            <TouchableOpacity onPress={() => handleFilter("பாலசமுத்திரம்")} style={style.filterButton}>
+                <Text style={style.filterButtonText}>Balasamuthiram</Text>
+            </TouchableOpacity>
+        </View>
+        <View style={style.item}>
+            <TouchableOpacity onPress={() => handleFilter("சேலம்")} style={style.filterButton}>
+                <Text style={style.filterButtonText}>Salem</Text>
+            </TouchableOpacity>
+        </View>
+        <View style={style.item}>
+            <TouchableOpacity onPress={() => handleFilter("சென்னை")} style={style.filterButton}>
+                <Text style={style.filterButtonText}>Chennai</Text>
+            </TouchableOpacity>
+        </View>
+        <View style={style.item}>
+            <TouchableOpacity onPress={() => handleFilter("துரையூர்")} style={style.filterButton}>
+                <Text style={style.filterButtonText}>Duraiyur</Text>
+            </TouchableOpacity>
+        </View>
+        <View style={style.item}>
+            <TouchableOpacity onPress={() => handleFilter("மேட்டுப்பாளையம்")} style={style.filterButton}>
+                <Text style={style.filterButtonText}>Metupalayam</Text>
+            </TouchableOpacity>
+        </View>
+        <View style={style.item}>
+            <TouchableOpacity onPress={() => handleFilter("நாமக்கல்")} style={style.filterButton}>
+                <Text style={style.filterButtonText}>Namakkal</Text>
+            </TouchableOpacity>
+        </View>
+        <View style={style.item}>
+            <TouchableOpacity onPress={() => handleFilter("பாலப்பட்டி")} style={style.filterButton}>
+                <Text style={style.filterButtonText}>Palapatti</Text>
+            </TouchableOpacity>
+        </View>
+        <View style={style.item}>
+            <TouchableOpacity onPress={() => handleFilter("பாண்டமங்கலம்")} style={style.filterButton}>
+                <Text style={style.filterButtonText}>Pandamangalam</Text>
+            </TouchableOpacity>
+        </View>
+        <View style={style.item}>
+            <TouchableOpacity onPress={() => handleFilter("பொத்தனூர்")} style={style.filterButton}>
+                <Text style={style.filterButtonText}>Pothanur</Text>
+            </TouchableOpacity>
+        </View>
+        <View style={style.item}>
+            <TouchableOpacity onPress={() => handleFilter("தண்ணீர்பள்ளி")} style={style.filterButton}>
+                <Text style={style.filterButtonText}>Thannirpalli</Text>
+            </TouchableOpacity>
+        </View>
+        <View style={style.item}>
+            <TouchableOpacity onPress={() => handleFilter("திருச்சி")} style={style.filterButton}>
+                <Text style={style.filterButtonText}>Trichy</Text>
+            </TouchableOpacity>
+        </View>
+        </ScrollView>
+        
+        {filteredData.map((item) => (
             <TouchableOpacity
             onPress={() => {
                 navigation.push("EventPangaliDetail", {
@@ -53,7 +159,9 @@ const EventPangaliList = ({ navigation,route }) => {
         ))}
         </ScrollView>
     );
-    }
+};
+
+
 
 export default EventPangaliList;
 
@@ -65,6 +173,60 @@ const style = StyleSheet.create({
         // justifyContent: 'center',
         paddingTop:16,
         backgroundColor: '#f9f5fa',
+    },
+    generateButton:{
+        alignItems: 'center',
+        backgroundColor: '#DDDDDD',
+        padding: 10,
+        width: 200,
+        marginTop: 0,
+        borderRadius: 8,
+        color: 'black',
+        height: 40
+    },
+    generateButtonText:{
+        fontSize: 16,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        color: 'black',
+    },
+    scrollViewContent: {
+        paddingHorizontal: 16,
+    },
+    item: {
+        // width: 100,
+        height: 75,
+        marginHorizontal: 8,
+    },
+    loading: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    filterContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        width: '90%',
+        marginLeft: 16,
+        
+    },
+    filterButtonText: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        color: 'black',
+        // height: 50
+    },
+
+    filterButton: {
+        alignItems: 'center',
+        backgroundColor: '#DDDDDD',
+        padding: 10,
+        // width: 100,
+        marginTop: 16,
+        borderRadius: 8,
+        color: 'black',
     },
     header: {
         fontSize: 24,
@@ -95,7 +257,7 @@ const style = StyleSheet.create({
     button: {
         backgroundColor: '#f9f5fa',
         borderRadius: 16,
-        width: '80%',
+        width: 300,
         height: 100,
         marginTop: 16,
         marginBottom: 16,

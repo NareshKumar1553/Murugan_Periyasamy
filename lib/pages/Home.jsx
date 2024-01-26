@@ -23,10 +23,10 @@ const HomeScreen = ({navigation}) => {
                 <Text style={style.text}>New Event</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={()=>{navigation.push('test1')}} style={style.button}>
+            {/* <TouchableOpacity onPress={()=>{navigation.push('test1')}} style={style.button}>
                 <Text style={style.textTamil}>புதிய நிகழ்வு</Text>
                 <Text style={style.text}>Test</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
         </View>
     );
 };
