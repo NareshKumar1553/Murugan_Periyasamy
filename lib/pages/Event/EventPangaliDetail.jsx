@@ -35,6 +35,13 @@ const EventPangaliDetail = ({ navigation,route }) => {
                 timestamp: firestore.FieldValue.serverTimestamp()
             });
 
+            await firestore().collection('log').doc(eventName+key).set({
+                log: 'Tax updated to ' + taxInput + ' for ' + name + ' from ' + city,
+                timestamp: firestore.FieldValue.serverTimestamp(),
+                name: name,
+                city: city,
+                eventName: eventName,
+            });
 
             console.log("Log added successfully!");
             

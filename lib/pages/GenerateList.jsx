@@ -6,26 +6,44 @@ import firestore from '@react-native-firebase/firestore';
 
 const GenerateList = ({route, navigation}) => {
     const [data, setData] = useState([]);
-
+    
+    console.log("Generate List Page");
     const eventName = route.params.eventName;
-
     console.log("Event Name : ", eventName);
+    const filter =  route.params.filteredData;
+
     useEffect(() => {
         fetchData();
     }, []);
 
     const fetchData = async () => {
+        const filteredData = route.params.filteredData;
+        console.log("Filtered Data : ", filteredData);
         console.log('Fetching data...');
-        const collectionRef = firestore().collection(eventName);
-        const snapshot = await collectionRef.get();
-        const fetchedData = snapshot.docs.map((doc) => doc.data());
-        setData(fetchedData);
-        console.log('Data fetched successfully!');
+        if(filteredData == 'all'){
+            const collectionRef = firestore().collection(eventName);
+            const snapshot = await collectionRef.get(); 
+            console.log('Snapshot fetched successfully!');
+            const fetchedData = snapshot.docs.map((doc) => doc.data());
+            setData(fetchedData);
+            console.log('Data fetched successfully!', fetchedData);
+        }
+        else{
+            const collectionRef = firestore().collection(eventName);
+            const snapshot = await collectionRef.where('city', '==', filteredData).get(); 
+            console.log('Snapshot fetched successfully!', filteredData);
+            const fetchedData = snapshot.docs.map((doc) => doc.data());
+            setData(fetchedData);
+            console.log('Data fetched successfully!', fetchedData);
+        }
+        
     };
+
 
     const saveExcelFile = async (excelData) => {
         console.log('Saving excel file...');
-        const currentDateTime = eventName+new Date().toISOString().replace(/[-:.]/g, '');
+        console.log('Filter ', filter);
+        const currentDateTime = eventName+"-"+filter+"-"+new Date().toISOString().replace(/[-:.]/g, '');
         const fileName = `${currentDateTime}.xlsx`;
         const path = RNFS.DocumentDirectoryPath + `/${fileName}`;
         await RNFS.writeFile(path, excelData, 'base64'); // Change encoding type to 'base64'

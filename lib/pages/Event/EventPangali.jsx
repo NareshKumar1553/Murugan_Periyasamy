@@ -7,10 +7,12 @@ const EventPangaliList = ({ navigation,route }) => {
     const [data, setData] = React.useState([]);
     const [isLoading, setLoading] = React.useState(true);
     const [filteredData, setFilteredData] = React.useState([]);
+    const [ratio, setRatio] = React.useState("all");
 
     React.useEffect(() => {
        
         eventName = route.params.eventName;
+        
         
         console.log("Event Name : ", eventName);
         const subscriber = firestore()
@@ -35,6 +37,7 @@ const EventPangaliList = ({ navigation,route }) => {
     }, []);
 
     const handleFilter = (ratio) => {
+        setRatio(ratio);
         if (ratio === "all") {
             setFilteredData(data);
         } else {
@@ -60,7 +63,7 @@ const EventPangaliList = ({ navigation,route }) => {
         <Text style={style.header}>பங்காளி பட்டியல்</Text>
 
         <View>
-            <TouchableOpacity onPress={()=>{navigation.push('GenerateList',{eventName: eventName})}} style={style.generateButton}>
+            <TouchableOpacity onPress={()=>{navigation.push('GenerateList',{eventName: eventName,filteredData:ratio})}} style={style.generateButton}>
                 <Text style={style.generateButtonText}>Generate List</Text>
             </TouchableOpacity>
 
