@@ -12,7 +12,6 @@ import PangaliList from "../pages/PangaliList";
 import EventPangaliList from "../pages/Event/EventPangali";
 import EventPangaliDetail from "../pages/Event/EventPangaliDetail";
 import LoadingPage from "../animation/LoadingPage";
-import Test2 from "../testing/test2";
 
 
 
@@ -31,7 +30,6 @@ export default function StackNavigation() {
                 <Stack.Screen name="NewEvent" component={NewEvent} />
                 <Stack.Screen name="Event" component={Event} />
                 <Stack.Screen name="PangaliList" component={PangaliList} />
-                <Stack.Screen name="test2" component={Test2} />
                 <Stack.Screen name="EventPangali" component={EventPangaliList} />
                 <Stack.Screen name="EventPangaliDetail" component={EventPangaliDetail} />
                 <Stack.Screen name="LoadingPage" component={LoadingPage} />
