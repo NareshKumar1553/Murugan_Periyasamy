@@ -10,9 +10,9 @@ import Event from "../pages/Event";
 import PangaliList from "../pages/PangaliList";
 import EventPangaliList from "../pages/Event/EventPangali";
 import EventPangaliDetail from "../pages/Event/EventPangaliDetail";
-import LoadingPage from "../animation/LoadingPage";
-import TestPage from "../testing/test1";
 import GenerateList from "../pages/GenerateList";
+import PangaliDetail from "../pages/PangaliDetails";
+import ErrorPage from "../pages/Developer";
 
 
 
@@ -27,14 +27,14 @@ export default function StackNavigation() {
             <Stack.Navigator screenOptions={{ headerShown: false }}>
                 <Stack.Screen name="LockScreen" component={LockPage} />
                 <Stack.Screen name="Home" component={HomeScreen} />
-                <Stack.Screen name="test1" component={TestPage} />
                 <Stack.Screen name="NewEvent" component={NewEvent} />
                 <Stack.Screen name="Event" component={Event} />
                 <Stack.Screen name="PangaliList" component={PangaliList} />
                 <Stack.Screen name="EventPangali" component={EventPangaliList} />
                 <Stack.Screen name="EventPangaliDetail" component={EventPangaliDetail} />
-                <Stack.Screen name="LoadingPage" component={LoadingPage} />
                 <Stack.Screen name="GenerateList" component={GenerateList}  />
+                <Stack.Screen name="PangaliDetails" component={PangaliDetail} />
+                <Stack.Screen name="#" component={ErrorPage} />
             </Stack.Navigator>
         </NavigationContainer>
     );

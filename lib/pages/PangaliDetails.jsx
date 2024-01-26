@@ -1,74 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Image, TextInput, Button, TouchableOpacity, Alert } from 'react-native';
-import firestore from '@react-native-firebase/firestore';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { View, Text, StyleSheet, Image, TextInput, Button, TouchableOpacity } from 'react-native';
 
-const EventPangaliDetail = ({ navigation,route }) => {
+const PangaliDetail = ({ navigation,route }) => {
     const { phno, tax, name, city, key } = route.params.event;
-    const [taxInput, setTaxInput] = useState(tax);
-    const [eventName, setEventName] = useState('');
-
-    useEffect(() => {
-        AsyncStorage.getItem('eventName').then((value) => {
-            console.log('Text:', value);
-            setEventName(value);
-        });
-    }
-    );
-    const handleTaxChange = (text) => {
-        setTaxInput(text);
-    };
-
-    const handleUpdateTax = async () => {
-        try {
-            // Update tax to the database
-            console.log("Updated tax:", taxInput);
-            await firestore().collection(eventName).doc(key).update({
-                tax: taxInput
-            });
-            console.log("Tax updated successfully!");
-            Alert.alert(
-                'Tax updated successfully!',
-                '',
-                [
-                    {
-                        text: 'OK',
-                        onPress: () => console.log('OK Pressed'),
-                    },
-                ],
-                { cancelable: false },
-            );
-            navigation.pop();
-        } catch (error) {
-            console.error("Error updating tax:", error);
-        }
-    };
+   
 
     return (
         <View style={style.container}>
             <Image
-                source={require('../../../android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png')}
+                source={require('../../android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png')}
                 style={{ width: 200, height: 200 }}
             />
             <Text style={style.textName}>Name: {name}</Text>
             <Text style={style.textCity}>City: {city}</Text>
             <Text style={style.textPhno}>Phone Number: {phno}</Text>
-            <Text style={style.textTax}>Tax: {tax}</Text>
-            <TextInput
-                keyboardType='numeric'
-                style={style.inputTax}
-                value={taxInput}
-                onChangeText={handleTaxChange}
-            />
-            <TouchableOpacity onPress={() => { handleUpdateTax() }} style={style.button}>
-                <Text style={style.text}>Update Tax</Text>
-            </TouchableOpacity>
             
         </View>
     );
 };
 
-export default EventPangaliDetail;
+export default PangaliDetail;
 
 const style = StyleSheet.create({
     container: {

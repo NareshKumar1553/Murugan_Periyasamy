@@ -16,7 +16,7 @@ const GenerateList = ({route, navigation}) => {
 
     const fetchData = async () => {
         console.log('Fetching data...');
-        const collectionRef = firestore().collection('Murugan');
+        const collectionRef = firestore().collection(eventName);
         const snapshot = await collectionRef.get();
         const fetchedData = snapshot.docs.map((doc) => doc.data());
         setData(fetchedData);

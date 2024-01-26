@@ -44,7 +44,7 @@ const PangaliList = ({ navigation }) => {
         {data.map((item) => (
             <TouchableOpacity
             onPress={() => {
-                navigation.push("Event", {
+                navigation.push("PangaliDetails", {
                 event: item,
                 });
             }}
