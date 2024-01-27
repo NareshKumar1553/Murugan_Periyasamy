@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Image, TextInput, Button, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, Image, TextInput, Button, TouchableOpacity, Alert, StatusBar } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import LinearGradient from "react-native-linear-gradient";
 
 const EventPangaliDetail = ({ navigation,route }) => {
     const { phno, tax, name, city, key } = route.params.event;
@@ -63,7 +64,13 @@ const EventPangaliDetail = ({ navigation,route }) => {
     };
 
     return (
+        console.log("Event Pangali Detail"),
+
+        <LinearGradient colors={['#f9f5fa', '#f3e1f7', '#f3e1f7']} style={{flex:1}}>
+
         <View style={style.container}>
+            <StatusBar backgroundColor='#f9f5fa' barStyle="dark-content" />
+
             <Image
                 source={require('../../../android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png')}
                 style={{ width: 200, height: 200 }}
@@ -83,6 +90,8 @@ const EventPangaliDetail = ({ navigation,route }) => {
             </TouchableOpacity>
             
         </View>
+
+        </LinearGradient>
     );
 };
 
@@ -93,16 +102,15 @@ const style = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         paddingTop: 16,
-        backgroundColor: '#f9f5fa',
     },
     button: {
         alignItems: 'center',
-        backgroundColor: '#DDDDDD',
+        backgroundColor: '#fbd3e9',
         padding: 10,
         width: 200,
         marginTop: 16,
         borderRadius: 8,
-        color: 'black',
+        color: '#83a4d4',
     },
     text: {
         fontSize: 18,

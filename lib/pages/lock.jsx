@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, TextInput, Button, Alert, StyleSheet, Text, StatusBar } from 'react-native';
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import LinearGradient from 'react-native-linear-gradient';
 
 const LockPage = ({navigation}) => {
     const [pin, setPin] = useState('');
@@ -63,8 +63,10 @@ const LockPage = ({navigation}) => {
 
 
     return (
+        console.log("Lock Page"),
+        <LinearGradient colors={['#f9f5fa', '#f3e1f7', '#f3e1f7']} style={{flex:1}}>
         <View style={style.container}>
-            <StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = "#debdba" translucent = {true}/>
+            <StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = "#f9f5fa" translucent = {true}/>
 
             <Text style={style.text}>Welcome to the Login Page</Text>
             <Text style={style.text}>Enter the Pin</Text>
@@ -79,6 +81,8 @@ const LockPage = ({navigation}) => {
                 cellSpacing={10}
             />
         </View>
+
+        </LinearGradient>
     );
 };
 
@@ -89,8 +93,7 @@ const style = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#debdba',
-
+     
     },
     text:{
         fontSize: 20,

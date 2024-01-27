@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { View, Button, TouchableOpacity, StyleSheet, Text, Alert } from 'react-native';
+import { View, Button, TouchableOpacity, StyleSheet, Text, Alert, StatusBar } from 'react-native';
 import XLSX from 'xlsx';
 import RNFS from 'react-native-fs';
 import firestore from '@react-native-firebase/firestore';
+import LinearGradient from 'react-native-linear-gradient';
 
 const GenerateList = ({route, navigation}) => {
     const [data, setData] = useState([]);
@@ -76,12 +77,15 @@ const GenerateList = ({route, navigation}) => {
     };
 
     return (
+        <LinearGradient colors={['#f9f5fa', '#f3e1f7', '#f3e1f7']} style={{flex:1}}>
+        <StatusBar backgroundColor="#f9f5fa" barStyle="dark-content" />
         <View style={style.container}>
             <TouchableOpacity onPress={()=>{convertToExcel()}} style={style.button}>
                 <Text style={style.text}>Convert to Excel</Text>
             </TouchableOpacity>
-            {/* <Button title="Convert to Excel" onPress={convertToExcel} /> */}
+           
         </View>
+        </LinearGradient>
     );
 };
 
@@ -94,7 +98,6 @@ const style = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         paddingTop:16,
-        backgroundColor: '#f9f5fa',
     },
 
     text: {
@@ -108,7 +111,7 @@ const style = StyleSheet.create({
     button: {
         width: '80%',
         height: 50,
-        backgroundColor: '#f9f5fa',
+        backgroundColor: '#f3e1f7',
         borderRadius: 8,
         marginTop: 16,
         alignItems: 'center',

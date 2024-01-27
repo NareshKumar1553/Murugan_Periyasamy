@@ -1,9 +1,17 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, StatusBar } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+LinearGradient.defaultProps = {
+    ...LinearGradient.defaultProps,
+    colors: ['#f9f5fa', '#f3e1f7', '#f3e1f7'],
+};
+
+
 
 const HomeScreen = ({navigation}) => {
     return (
         console.log("Home Screen"),
+        <LinearGradient colors={['#f9f5fa', '#f3e1f7', '#f3e1f7']} style={{flex:1}}>
         <View style={style.container}>
             <StatusBar backgroundColor='#f9f5fa' barStyle="dark-content" />
             <Text style={style.header}>வணக்கம்</Text>
@@ -28,11 +36,12 @@ const HomeScreen = ({navigation}) => {
                 <Text style={style.text}>All Events</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={()=>{navigation.push('test1')}} style={style.button}>
+            {/* <TouchableOpacity onPress={()=>{navigation.push('test1')}} style={style.button}>
                 <Text style={style.textTamil}>எங்களை பற்றி</Text>
                 <Text style={style.text}>About Us</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
         </View>
+        </LinearGradient>
     );
 };
 
@@ -44,7 +53,7 @@ const style = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         paddingTop:16,
-        backgroundColor: '#f9f5fa',
+        // backgroundColor: '#f9f5fa',
     },
     header: {
         fontSize: 24,
@@ -61,7 +70,7 @@ const style = StyleSheet.create({
         marginTop: 16,
         marginLeft: 16,
         marginRight: 16,
-        color:'black',
+        color:'#000',
         
     },
     text: {
@@ -71,10 +80,10 @@ const style = StyleSheet.create({
         marginBottom: 16,
         marginLeft: 16,
         marginRight: 16,
-        color:'black'
+        color:'#000'
     },
     button: {
-        backgroundColor: '#eed2f7',
+        backgroundColor: '#fbd3e9',
         padding: 10,
         margin: 10,
         borderRadius: 25,

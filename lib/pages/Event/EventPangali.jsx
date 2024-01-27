@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet, StatusBar, ScrollView, ActivityIndicator } from "react-native";
 import firestore from "@react-native-firebase/firestore";
-
+import LinearGradient from "react-native-linear-gradient";
 
 const EventPangaliList = ({ navigation,route }) => {
     const [data, setData] = React.useState([]);
@@ -56,6 +56,10 @@ const EventPangaliList = ({ navigation,route }) => {
     }
     
     return (
+
+        <LinearGradient colors={['#f9f5fa', '#f3e1f7', '#f3e1f7']} style={{flex:1}}>
+
+        
         <ScrollView contentContainerStyle={{ alignItems: 'center' }} style={style.container}>
         <StatusBar backgroundColor="#f9f5fa" barStyle="dark-content" />
 
@@ -161,6 +165,8 @@ const EventPangaliList = ({ navigation,route }) => {
             </TouchableOpacity>
         ))}
         </ScrollView>
+
+        </LinearGradient>
     );
 };
 
@@ -172,10 +178,8 @@ export default EventPangaliList;
 const style = StyleSheet.create({
     container: {
         flex: 1,
-        // alignItems: 'center',
-        // justifyContent: 'center',
         paddingTop:16,
-        backgroundColor: '#f9f5fa',
+
     },
     
     generateButton:{
@@ -266,7 +270,7 @@ const style = StyleSheet.create({
         color:'#66645e',
     },
     button: {
-        backgroundColor: '#f9f5fa',
+        backgroundColor: '#fbd3e9',
         borderRadius: 16,
         width: 300,
         height: 100,

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Text, TouchableOpacity, StatusBar } from 'react-native';
+import { View, TextInput, Button, StyleSheet, Text, TouchableOpacity, StatusBar, Alert } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import LinearGradient from "react-native-linear-gradient";
 
 const NewEvent = ({navigation}) => {
     const [text, setText] = useState('');
@@ -48,6 +49,17 @@ const NewEvent = ({navigation}) => {
               });
             // Show a success message or navigate to another screen
             console.log('Data saved successfully!');
+            Alert.alert(
+                'Event Created successfully!',
+                '',
+                [
+                    {
+                        text: 'OK',
+                        onPress: () => console.log('OK Pressed'),
+                    },
+                ],
+                { cancelable: false },
+            );
         } catch (error) {
             console.log('Error saving data:', error);
         }
@@ -55,8 +67,12 @@ const NewEvent = ({navigation}) => {
 
 
     return (
+
+        console.log("New Event"),
+        <LinearGradient colors={['#f9f5fa', '#f3e1f7', '#f3e1f7']} style={{flex:1}}>
+
         <View style={style.container}>
-            <StatusBar backgroundColor='#fafafa' barStyle="dark-content" />
+            <StatusBar backgroundColor='#f9f5fa' barStyle="dark-content" />
 
             <Text style={style.text}>Enter the Event Name</Text>
             <Text style={style.textTamil}>புதிய நிகழ்வு பெயர்</Text>
@@ -75,6 +91,8 @@ const NewEvent = ({navigation}) => {
             </TouchableOpacity>
             
         </View>
+
+        </LinearGradient>
     );
 };
 
@@ -86,14 +104,13 @@ const style = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         padding: 16,
-        backgroundColor:'#fafafa'
     },
     input: {
         width: 300,
         height: 50,
         padding: 10,
         marginBottom: 10,
-        backgroundColor: '#d5edc7',
+        backgroundColor: '#fbd3e9',
         borderRadius: 15,
         fontSize: 18,
         color:'black',
@@ -101,13 +118,13 @@ const style = StyleSheet.create({
     CheckBox: {
         padding: 10,
         marginBottom: 10,
-        backgroundColor: '#d5edc7',
-        borderRadius: 15,
+        backgroundColor: '#fbd3e9',
+        borderRadius: 25,
         fontSize: 18,
         color:'black',
     },
     button: {
-        backgroundColor: '#d5edc7',
+        backgroundColor: '#fbd3e9',
         borderRadius: 25,
         justifyContent:'center',
         alignItems:'center',

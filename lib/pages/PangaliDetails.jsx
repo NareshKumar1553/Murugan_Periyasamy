@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Image, TextInput, Button, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TextInput, Button, TouchableOpacity, StatusBar } from 'react-native';
+import LinearGradient from "react-native-linear-gradient";
 
 const PangaliDetail = ({ navigation,route }) => {
     const { phno, tax, name, city, key } = route.params.event;
    
 
     return (
+        <LinearGradient colors={['#f9f5fa', '#f3e1f7', '#f3e1f7']} style={{flex:1}}>
         <View style={style.container}>
+            <StatusBar backgroundColor='#f9f5fa' barStyle="dark-content" />
             <Image
                 source={require('../../android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png')}
                 style={{ width: 200, height: 200 }}
@@ -16,6 +19,8 @@ const PangaliDetail = ({ navigation,route }) => {
             <Text style={style.textPhno}>Phone Number: {phno}</Text>
             
         </View>
+
+        </LinearGradient>
     );
 };
 
@@ -26,11 +31,10 @@ const style = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         paddingTop: 16,
-        backgroundColor: '#f9f5fa',
     },
     button: {
         alignItems: 'center',
-        backgroundColor: '#DDDDDD',
+        backgroundColor: '#f9f5fa',
         padding: 10,
         width: 200,
         marginTop: 16,

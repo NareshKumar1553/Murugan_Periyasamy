@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, StatusBar, Alert, ActivityIndicator } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import firestore from '@react-native-firebase/firestore';
+import LinearGradient from "react-native-linear-gradient";
 
 
 const Event = ({navigation}) => {
@@ -116,6 +117,7 @@ const Event = ({navigation}) => {
 
     return (
 
+        <LinearGradient colors={['#f9f5fa', '#f3e1f7', '#f3e1f7']} style={{flex:1}}>
         
         <View style={style.container}>
             <StatusBar backgroundColor='#f9f5fa' barStyle="dark-content" />
@@ -145,6 +147,8 @@ const Event = ({navigation}) => {
             </View>
             )}
         </View>
+
+        </LinearGradient>
     );
 }
 
@@ -156,7 +160,6 @@ const style = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         paddingTop:16,
-        backgroundColor: '#f9f5fa',
     },
     header: {
         fontSize: 24,
@@ -186,7 +189,7 @@ const style = StyleSheet.create({
         color:'black',
     },
     button: {
-        backgroundColor: '#eed2f7',
+        backgroundColor: '#fbd3e9',
         padding: 10,
         margin: 10,
         borderRadius: 25,

@@ -1,6 +1,14 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet, StatusBar, ScrollView , ActivityIndicator} from "react-native";
 import firestore from "@react-native-firebase/firestore";
+import LinearGradient from "react-native-linear-gradient";
+
+// LinearGradient.defaultProps = {
+//     useAngle: true,
+//     angle: 45,
+//     angleCenter: { x: 0.5, y: 0.5 },
+//     colors: ["#FF9800", "#FF5722"],
+// };
 
 const EventList = ({ navigation }) => {
     const [data, setData] = React.useState([]);
@@ -37,8 +45,9 @@ const EventList = ({ navigation }) => {
     }
     
     return (
-        <ScrollView contentContainerStyle={{ alignItems: 'center' }} style={style.container}>
+        <LinearGradient colors={['#f9f5fa', '#f3e1f7', '#f3e1f7']} style={{flex:1}}>
         <StatusBar backgroundColor="#f9f5fa" barStyle="dark-content" />
+        <ScrollView contentContainerStyle={{ alignItems: 'center' }} style={style.container}>
         <Text style={style.header}>நிகழ்வுகள் பட்டியல்</Text>
         <Text style={style.header}>Events List</Text>
         
@@ -56,6 +65,7 @@ const EventList = ({ navigation }) => {
             </TouchableOpacity>
         ))}
         </ScrollView>
+        </LinearGradient>
     );
     }
 
@@ -65,10 +75,7 @@ export default EventList;
 const style = StyleSheet.create({
     container: {
         flex: 1,
-        // alignItems: 'center',
-        // justifyContent: 'center',
         paddingTop:16,
-        backgroundColor: '#f9f5fa',
     },
     loading: {
         flex: 1,
@@ -89,13 +96,11 @@ const style = StyleSheet.create({
         textAlign: 'center',
         marginTop: 0,
         color:'black',
-        textDecorationLine: 'underline',
     },
     textTamil: {
         fontSize: 20,
         fontWeight: 'bold',
         textAlign: 'center',
-        // marginTop: 16,
         marginLeft: 16,
         marginRight: 16,
         color:'black',
@@ -110,7 +115,7 @@ const style = StyleSheet.create({
         color:'#66645e',
     },
     button: {
-        backgroundColor: '#f9f5fa',
+        backgroundColor: '#fbd3e9',
         borderRadius: 16,
         width: '80%',
         height: 100,
