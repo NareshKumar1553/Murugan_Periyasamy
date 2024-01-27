@@ -27,6 +27,11 @@ const HomeScreen = ({navigation}) => {
                 <Text style={style.textTamil}>அனைத்து நிகழ்வுகளும்</Text>
                 <Text style={style.text}>All Events</Text>
             </TouchableOpacity>
+
+            <TouchableOpacity onPress={()=>{navigation.push('test1')}} style={style.button}>
+                <Text style={style.textTamil}>எங்களை பற்றி</Text>
+                <Text style={style.text}>About Us</Text>
+            </TouchableOpacity>
         </View>
     );
 };

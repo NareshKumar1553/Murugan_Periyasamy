@@ -21,7 +21,7 @@ const GenerateList = ({route, navigation}) => {
         console.log("Filtered Data : ", filteredData);
         console.log('Fetching data...');
         if(filteredData == 'all'){
-            const collectionRef = firestore().collection(eventName);
+            const collectionRef = firestore().collection(eventName).orderBy('city');
             const snapshot = await collectionRef.get(); 
             console.log('Snapshot fetched successfully!');
             const fetchedData = snapshot.docs.map((doc) => doc.data());
