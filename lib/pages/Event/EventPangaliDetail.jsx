@@ -4,7 +4,7 @@ import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LinearGradient from "react-native-linear-gradient";
 
-const EventPangaliDetail = ({ navigation,route }) => {
+const EventPangaliDetail = ({ navigation, route }) => {
     const { phno, tax, name, city, key } = route.params.event;
     const [taxInput, setTaxInput] = useState(tax);
     const [eventName, setEventName] = useState('');
@@ -14,8 +14,8 @@ const EventPangaliDetail = ({ navigation,route }) => {
             console.log('Text:', value);
             setEventName(value);
         });
-    }
-    );
+    }, []);
+
     const handleTaxChange = (text) => {
         setTaxInput(text);
     };
@@ -29,14 +29,14 @@ const EventPangaliDetail = ({ navigation,route }) => {
             });
 
             console.log("Tax updated successfully!");
-            
+
             // Add log to the database
             await firestore().collection(eventName).doc(key).collection('log').add({
-                log: 'Tax updated to ' + taxInput ,
+                log: 'Tax updated to ' + taxInput,
                 timestamp: firestore.FieldValue.serverTimestamp()
             });
 
-            await firestore().collection('log').doc(eventName+key).set({
+            await firestore().collection('log').doc(eventName + key).set({
                 log: 'Tax updated to ' + taxInput + ' for ' + name + ' from ' + city,
                 timestamp: firestore.FieldValue.serverTimestamp(),
                 name: name,
@@ -45,7 +45,7 @@ const EventPangaliDetail = ({ navigation,route }) => {
             });
 
             console.log("Log added successfully!");
-            
+
             Alert.alert(
                 'Tax updated successfully!',
                 '',
@@ -64,62 +64,41 @@ const EventPangaliDetail = ({ navigation,route }) => {
     };
 
     return (
-        console.log("Event Pangali Detail"),
-
-        <LinearGradient colors={['#f9f5fa', '#f3e1f7', '#f3e1f7']} style={{flex:1}}>
-
-        <View style={style.container}>
+        <LinearGradient colors={['#f9f5fa', '#f3e1f7', '#f3e1f7']} style={styles.container}>
             <StatusBar backgroundColor='#f9f5fa' barStyle="dark-content" />
 
             <Image
                 source={require('../../../android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png')}
-                style={{ width: 200, height: 200 }}
+                style={styles.image}
             />
-            <Text style={style.textName}>Name: {name}</Text>
-            <Text style={style.textCity}>City: {city}</Text>
-            <Text style={style.textPhno}>Phone Number: {phno}</Text>
-            <Text style={style.textTax}>Tax: {tax}</Text>
+            <Text style={styles.text}>Name: {name}</Text>
+            <Text style={styles.text}>City: {city}</Text>
+            <Text style={styles.text}>Phone Number: {phno}</Text>
+            <Text style={styles.text}>Tax: {tax}</Text>
             <TextInput
                 keyboardType='numeric'
-                style={style.inputTax}
+                style={styles.input}
                 value={taxInput}
                 onChangeText={handleTaxChange}
             />
-            <TouchableOpacity onPress={() => { handleUpdateTax() }} style={style.button}>
-                <Text style={style.text}>Update Tax</Text>
+            <TouchableOpacity onPress={handleUpdateTax} style={styles.button}>
+                <Text style={styles.buttonText}>Update Tax</Text>
             </TouchableOpacity>
-            
-        </View>
-
         </LinearGradient>
     );
 };
 
-export default EventPangaliDetail;
-
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
         paddingTop: 16,
     },
-    button: {
-        alignItems: 'center',
-        backgroundColor: '#fbd3e9',
-        padding: 10,
+    image: {
         width: 200,
-        marginTop: 16,
-        borderRadius: 8,
-        color: '#83a4d4',
+        height: 200,
     },
     text: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        color: 'white',
-    },
-
-    textName: {
         fontSize: 20,
         fontWeight: 'bold',
         textAlign: 'center',
@@ -128,34 +107,7 @@ const style = StyleSheet.create({
         marginRight: 16,
         color: 'black',
     },
-    textCity: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        marginTop: 16,
-        marginLeft: 16,
-        marginRight: 16,
-        color: 'black',
-    },
-    textPhno: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        marginTop: 16,
-        marginLeft: 16,
-        marginRight: 16,
-        color: 'black',
-    },
-    textTax: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        marginTop: 16,
-        marginLeft: 16,
-        marginRight: 16,
-        color: 'black',
-    },
-    inputTax: {
+    input: {
         fontSize: 20,
         fontWeight: 'bold',
         textAlign: 'center',
@@ -169,4 +121,21 @@ const style = StyleSheet.create({
         width: 200,
         borderRadius: 8,
     },
+    button: {
+        alignItems: 'center',
+        backgroundColor: '#fbd3e9',
+        padding: 10,
+        width: 200,
+        marginTop: 16,
+        borderRadius: 8,
+        color: '#83a4d4',
+    },
+    buttonText: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        color: 'white',
+    },
 });
+
+export default EventPangaliDetail;

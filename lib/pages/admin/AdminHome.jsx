@@ -2,33 +2,39 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, StatusBar } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
-const HomeScreen = ({ navigation }) => {
+const AdminHome = ({ navigation }) => {
+    console.log("Admin Home Screen");
+
+    const handleNavigation = (screen) => {
+        navigation.push(screen);
+    };
+
     return (
         <LinearGradient colors={['#f9f5fa', '#f3e1f7', '#f3e1f7']} style={styles.container}>
             <StatusBar backgroundColor='#f9f5fa' barStyle="dark-content" />
             <Text style={styles.header}>வணக்கம்</Text>
 
-            <TouchableOpacity onPress={() => { navigation.push('PangaliList') }} style={styles.button}>
+            <TouchableOpacity onPress={() => handleNavigation('AdminPangaliList')} style={styles.button}>
                 <Text style={styles.textTamil}>பங்காளி பட்டியல்</Text>
                 <Text style={styles.text}>Pangali List</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => { navigation.push('#') }} style={styles.button}>
-                <Text style={styles.textTamil}>பெண்கள் பட்டியல் </Text>
+            <TouchableOpacity onPress={() => handleNavigation('#')} style={styles.button}>
+                <Text style={styles.textTamil}>பெண்கள் பட்டியல்</Text>
                 <Text style={styles.text}>Female List</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => { navigation.push('NewEvent') }} style={styles.button}>
+            <TouchableOpacity onPress={() => handleNavigation('NewEvent')} style={styles.button}>
                 <Text style={styles.textTamil}>புதிய நிகழ்வு</Text>
                 <Text style={styles.text}>New Event</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => { navigation.push('EventList') }} style={styles.button}>
+            <TouchableOpacity onPress={() => handleNavigation('EventList')} style={styles.button}>
                 <Text style={styles.textTamil}>அனைத்து நிகழ்வுகளும்</Text>
                 <Text style={styles.text}>All Events</Text>
             </TouchableOpacity>
 
-            {/* <TouchableOpacity onPress={() => { navigation.push('test1') }} style={styles.button}>
+            {/* <TouchableOpacity onPress={() => handleNavigation('test1')} style={styles.button}>
                 <Text style={styles.textTamil}>எங்களை பற்றி</Text>
                 <Text style={styles.text}>About Us</Text>
             </TouchableOpacity> */}
@@ -36,7 +42,7 @@ const HomeScreen = ({ navigation }) => {
     );
 };
 
-export default HomeScreen;
+export default AdminHome;
 
 const styles = StyleSheet.create({
     container: {
@@ -57,7 +63,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
         marginTop: 16,
-        marginHorizontal: 16,
+        marginLeft: 16,
+        marginRight: 16,
         color: '#000',
     },
     text: {
@@ -65,7 +72,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
         marginBottom: 16,
-        marginHorizontal: 16,
+        marginLeft: 16,
+        marginRight: 16,
         color: '#000',
     },
     button: {

@@ -1,4 +1,3 @@
-
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { useEffect } from "react";
@@ -14,16 +13,17 @@ import GenerateList from "../pages/GenerateList";
 import PangaliDetail from "../pages/PangaliDetails";
 import ErrorPage from "../pages/Developer";
 import EventList from "../pages/EventList";
-
-
-
+import AdminHome from "../pages/admin/AdminHome";
+import PangaliEntry from "../pages/admin/PangaliEntry";
+import AdminPangaliList from "../pages/admin/AdminPangaliList";
 
 const Stack = createNativeStackNavigator();
 
 export default function StackNavigation() {
     useEffect(() => {
         SplashScreen.hide();
-      }, []);
+    }, []);
+
     return (
         <NavigationContainer>
             <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -34,14 +34,14 @@ export default function StackNavigation() {
                 <Stack.Screen name="PangaliList" component={PangaliList} />
                 <Stack.Screen name="EventPangali" component={EventPangaliList} />
                 <Stack.Screen name="EventPangaliDetail" component={EventPangaliDetail} />
-                <Stack.Screen name="GenerateList" component={GenerateList}  />
+                <Stack.Screen name="GenerateList" component={GenerateList} />
                 <Stack.Screen name="PangaliDetails" component={PangaliDetail} />
                 <Stack.Screen name="#" component={ErrorPage} />
                 <Stack.Screen name="EventList" component={EventList} />
-                
-
-                
+                <Stack.Screen name="AdminHome" component={AdminHome} />
+                <Stack.Screen name="PangaliEntry" component={PangaliEntry} />
+                <Stack.Screen name="AdminPangaliList" component={AdminPangaliList} />
             </Stack.Navigator>
         </NavigationContainer>
     );
-    }
+}

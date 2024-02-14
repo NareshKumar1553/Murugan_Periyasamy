@@ -53,6 +53,8 @@ const PangaliList = ({ navigation,route }) => {
     
     return (
 
+        console.log("PangaliList.jsx: PangaliList() called."),
+
         <LinearGradient colors={['#f9f5fa', '#f3e1f7', '#f3e1f7']} style={{flex:1}}>
 
         
@@ -149,6 +151,7 @@ const PangaliList = ({ navigation,route }) => {
             style={style.button}
             >
             <Text style={style.textTamil}>{item.name}</Text>
+            <Text style={style.text}>{item.phno}</Text>
             <Text style={style.text}>{item.city}</Text>            
             </TouchableOpacity>
         ))}
@@ -261,7 +264,7 @@ const style = StyleSheet.create({
         backgroundColor: '#fbd3e9',
         borderRadius: 16,
         width: 300,
-        height: 100,
+        height: 'auto',
         marginTop: 16,
         marginBottom: 16,
         alignItems: 'center',

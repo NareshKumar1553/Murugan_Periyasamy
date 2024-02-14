@@ -1,81 +1,71 @@
-import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet, StatusBar, ScrollView , ActivityIndicator} from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, TouchableOpacity, StyleSheet, StatusBar, ScrollView, ActivityIndicator } from "react-native";
 import firestore from "@react-native-firebase/firestore";
 import LinearGradient from "react-native-linear-gradient";
 
-// LinearGradient.defaultProps = {
-//     useAngle: true,
-//     angle: 45,
-//     angleCenter: { x: 0.5, y: 0.5 },
-//     colors: ["#FF9800", "#FF5722"],
-// };
-
 const EventList = ({ navigation }) => {
-    const [data, setData] = React.useState([]);
-    const [loading, setLoading] = React.useState(true);
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-    React.useEffect(() => {
+    useEffect(() => {
         const subscriber = firestore()
-        .collection("events")
-        .onSnapshot((querySnapshot) => {
-            const data = [];
-            console.log(querySnapshot.size);
-            querySnapshot.forEach((documentSnapshot) => {
-            data.push({
-                ...documentSnapshot.data(),
-                key: documentSnapshot.id,
+            .collection("events")
+            .onSnapshot((querySnapshot) => {
+                const data = querySnapshot.docs.map((documentSnapshot) => ({
+                    ...documentSnapshot.data(),
+                    key: documentSnapshot.id,
+                }));
+
+                setData(data);
+                setLoading(false);
             });
-            });
-    
-            setData(data);
-            setLoading(false);
-        });
-    
+
         // Unsubscribe from events when no longer in use
         return () => subscriber();
     }, []);
 
     if (loading) {
-        return(
+        return (
             <View style={style.loading}>
                 <ActivityIndicator size="large" color="#0000ff" />
                 <Text style={style.loadingText}>Loading...</Text>
             </View>
         );
     }
-    
+
     return (
-        <LinearGradient colors={['#f9f5fa', '#f3e1f7', '#f3e1f7']} style={{flex:1}}>
-        <StatusBar backgroundColor="#f9f5fa" barStyle="dark-content" />
-        <ScrollView contentContainerStyle={{ alignItems: 'center' }} style={style.container}>
-        <Text style={style.header}>நிகழ்வுகள் பட்டியல்</Text>
-        <Text style={style.header}>Events List</Text>
-        
-        {data.map((item) => (
-            <TouchableOpacity
-            onPress={() => {
-                navigation.push("#", {
-                event: item,
-                });
-            }}
-            style={style.button}
-            >
-            <Text style={style.textTamil}>{item.name}</Text>
-            <Text style={style.text}>{item.city}</Text>            
-            </TouchableOpacity>
-        ))}
-        </ScrollView>
+        <LinearGradient colors={['#f9f5fa', '#f3e1f7', '#f3e1f7']} style={style.container}>
+            <StatusBar backgroundColor="#f9f5fa" barStyle="dark-content" />
+            <ScrollView contentContainerStyle={style.scrollViewContainer}>
+                <Text style={style.header}>நிகழ்வுகள் பட்டியல்</Text>
+                <Text style={style.header}>Events List</Text>
+
+                {data.map((item) => (
+                    <TouchableOpacity
+                        key={item.key}
+                        onPress={() => {
+                            navigation.push("#", {
+                                event: item,
+                            });
+                        }}
+                        style={style.button}
+                    >
+                        <Text style={style.textTamil}>{item.name}</Text>
+                        <Text style={style.text}>{item.city}</Text>
+                    </TouchableOpacity>
+                ))}
+            </ScrollView>
         </LinearGradient>
     );
-    }
-
-export default EventList;
-
+};
 
 const style = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop:16,
+        paddingTop: 16,
+    },
+    scrollViewContainer: {
+        alignItems: 'center',
     },
     loading: {
         flex: 1,
@@ -88,31 +78,29 @@ const style = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
         marginTop: 16,
-        color:'black',
+        color: 'black',
     },
     header: {
         fontSize: 24,
         fontWeight: 'bold',
         textAlign: 'center',
         marginTop: 0,
-        color:'black',
+        color: 'black',
     },
     textTamil: {
         fontSize: 20,
         fontWeight: 'bold',
         textAlign: 'center',
-        marginLeft: 16,
-        marginRight: 16,
-        color:'black',
+        marginHorizontal: 16,
+        color: 'black',
     },
     text: {
         fontSize: 16,
         fontWeight: 'bold',
         textAlign: 'center',
         marginTop: 16,
-        marginLeft: 16,
-        marginRight: 16,
-        color:'#66645e',
+        marginHorizontal: 16,
+        color: '#66645e',
     },
     button: {
         backgroundColor: '#fbd3e9',
@@ -127,9 +115,11 @@ const style = StyleSheet.create({
         shadowOffset: {
             width: 0,
             height: 2,
-            },
+        },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
     },
 });
+
+export default EventList;

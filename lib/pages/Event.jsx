@@ -4,69 +4,32 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import firestore from '@react-native-firebase/firestore';
 import LinearGradient from "react-native-linear-gradient";
 
-
-const Event = ({navigation}) => {
-    function AlertButton(){
-        console.log("Delete Button");
-
-        Alert.alert(
-            "Delete Event",
-            "If you delete the event, all the data will be lost. Are you sure you want to delete the event?",
-            [
-              {
-                text: "No",
-                onPress: () => console.log("Cancel Pressed"),
-                style: "cancel"
-              },
-              { text: "Yes", onPress: () => AsyncStorage.clear().then(() => {
-                navigation.reset({
-                    index: 0,
-                    routes: [{ name: 'Home' }],
-                  });
-                console.log("Event Deleted");
-              })
-              }
-            ]
-          );
-    }
-
-
-    console.log('Event Page');
+const Event = ({ navigation }) => {
     const [eventName, setEventName] = useState('');
     const [pagali, setPagali] = useState(false);
     const [female, setFemale] = useState(false);
-
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-       
         AsyncStorage.getItem('eventName').then((value) => {
-            console.log('Text:', value);
             setEventName(value);
         });
         AsyncStorage.getItem('pangali').then((value) => {
-            console.log('Pagali :', value);
             setPagali(value);
-        }
-        );  
-
+        });
         AsyncStorage.getItem('female').then((value) => {
-            console.log('Female :', value);
             setFemale(value);
-        }
-        );
-        
-
-        if(pagali == 'true'){
-            console.log("Pagali is true");
-            fetchPangaali();
-        }
+        });
         setLoading(false);
-
     }, []);
 
+    useEffect(() => {
+        if (pagali === 'true') {
+            fetchPangaali();
+        }
+    }, [pagali]);
+
     const fetchPangaali = async () => {
-        console.log("Fetch Pangali");
         try {
             const pangaliParentSnapshot = await firestore()
                 .collection('PangaliParent')
@@ -74,37 +37,45 @@ const Event = ({navigation}) => {
 
             pangaliParentSnapshot.forEach(async (doc) => {
                 const data = doc.data();
-                // Add the data to the newCollection with an additional field and custom document name
-                console.log("Data Name : ",data.name);
                 await firestore().collection(eventName).doc(data.name).set({
                     ...data,
                     tax: 0
                 });
             });
-            // setLoading(false);
+
+            await firestore().collection('events').doc(eventName).set({
+                name: eventName,
+            });
         } catch (error) {
             console.error('Error fetching data:', error);
         }
-
-        try{
-            const pangaliSnapshot = await firestore()
-            .collection('events')
-            .doc(eventName)
-            .set({
-                name: eventName,
-            });
-            setLoading(false);
-        }
-        catch (error) {
-            console.error('Error Adding data:', error);
-        }
     }
 
-    useEffect(() => {
-        if (pagali == 'true') {
-            fetchPangaali();
-        }
-    }, [pagali]);
+    const handleDeleteEvent = () => {
+        Alert.alert(
+            "Delete Event",
+            "If you delete the event, all the data will be lost. Are you sure you want to delete the event?",
+            [
+                {
+                    text: "No",
+                    onPress: () => console.log("Cancel Pressed"),
+                    style: "cancel"
+                },
+                {
+                    text: "Yes",
+                    onPress: () => {
+                        AsyncStorage.clear().then(() => {
+                            navigation.reset({
+                                index: 0,
+                                routes: [{ name: 'Home' }],
+                            });
+                            console.log("Event Deleted");
+                        });
+                    }
+                }
+            ]
+        );
+    }
 
     if (loading) {
         return (
@@ -116,38 +87,27 @@ const Event = ({navigation}) => {
     }
 
     return (
-
-        <LinearGradient colors={['#f9f5fa', '#f3e1f7', '#f3e1f7']} style={{flex:1}}>
-        
-        <View style={style.container}>
-            <StatusBar backgroundColor='#f9f5fa' barStyle="dark-content" />
-            {loading ? (
-                <ActivityIndicator size="large" color="black" />
-            ) : (
-                <View>
-            <Text style={style.textTamil}>நிகழ்வு பெயர்: {eventName}</Text>
-            <Text style={style.text}>Event Name: {eventName}</Text>
-            
-            {pagali=='true' && 
-            <TouchableOpacity onPress={()=>{navigation.push('EventPangali',{eventName : eventName})}} style={style.button}>
-                <Text style={style.textTamil}>பங்காளி பட்டியல்</Text>
-                <Text style={style.text}>Pangali List</Text>
-            </TouchableOpacity>
-            }
-            {female=='true' && 
-            <TouchableOpacity onPress={()=>{navigation.push('#')}} style={style.button}>
-                <Text style={style.textTamil}>பெண்கள் பட்டியல் </Text>
-                <Text style={style.text}>Female List</Text>
-            </TouchableOpacity>
-            }
-            
-            <TouchableOpacity onPress={()=>{AlertButton()}} style={style.deleteButton}>
-                <Text style={style.buttonText}>Delete Event</Text>
-            </TouchableOpacity>
+        <LinearGradient colors={['#f9f5fa', '#f3e1f7', '#f3e1f7']} style={{ flex: 1 }}>
+            <View style={style.container}>
+                <StatusBar backgroundColor='#f9f5fa' barStyle="dark-content" />
+                <Text style={style.textTamil}>நிகழ்வு பெயர்: {eventName}</Text>
+                <Text style={style.text}>Event Name: {eventName}</Text>
+                {pagali === 'true' && (
+                    <TouchableOpacity onPress={() => { navigation.push('EventPangali', { eventName: eventName }) }} style={style.button}>
+                        <Text style={style.textTamil}>பங்காளி பட்டியல்</Text>
+                        <Text style={style.text}>Pangali List</Text>
+                    </TouchableOpacity>
+                )}
+                {female === 'true' && (
+                    <TouchableOpacity onPress={() => { navigation.push('#') }} style={style.button}>
+                        <Text style={style.textTamil}>பெண்கள் பட்டியல் </Text>
+                        <Text style={style.text}>Female List</Text>
+                    </TouchableOpacity>
+                )}
+                <TouchableOpacity onPress={handleDeleteEvent} style={style.deleteButton}>
+                    <Text style={style.buttonText}>Delete Event</Text>
+                </TouchableOpacity>
             </View>
-            )}
-        </View>
-
         </LinearGradient>
     );
 }
@@ -159,14 +119,14 @@ const style = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        paddingTop:16,
+        paddingTop: 16,
     },
     header: {
         fontSize: 24,
         fontWeight: 'bold',
         textAlign: 'center',
         marginTop: 0,
-        color:'black',
+        color: 'black',
         textDecorationLine: 'underline',
     },
     textTamil: {
@@ -176,7 +136,7 @@ const style = StyleSheet.create({
         marginTop: 16,
         marginLeft: 16,
         marginRight: 16,
-        color:'black',
+        color: 'black',
         textDecorationLine: 'underline',
     },
     text: {
@@ -186,7 +146,7 @@ const style = StyleSheet.create({
         marginBottom: 16,
         marginLeft: 16,
         marginRight: 16,
-        color:'black',
+        color: 'black',
     },
     button: {
         backgroundColor: '#fbd3e9',
@@ -202,7 +162,6 @@ const style = StyleSheet.create({
         borderRadius: 25,
         width: 300,
         height: 50,
-        
     },
     buttonText: {
         fontSize: 24,
