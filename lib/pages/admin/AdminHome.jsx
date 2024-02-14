@@ -9,6 +9,10 @@ const AdminHome = ({ navigation }) => {
         navigation.push(screen);
     };
 
+    const handleFemaleNavigation = (screen) => {
+        
+    };
+
     return (
         <LinearGradient colors={['#f9f5fa', '#f3e1f7', '#f3e1f7']} style={styles.container}>
             <StatusBar backgroundColor='#f9f5fa' barStyle="dark-content" />
@@ -24,20 +28,17 @@ const AdminHome = ({ navigation }) => {
                 <Text style={styles.text}>Female List</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => handleNavigation('NewEvent')} style={styles.button}>
-                <Text style={styles.textTamil}>புதிய நிகழ்வு</Text>
-                <Text style={styles.text}>New Event</Text>
+            <TouchableOpacity onPress={() => {navigation.push('NewChild',{gender:'male'});}} style={styles.button}>
+                <Text style={styles.textTamil}>புதிய பங்காளி</Text>
+                <Text style={styles.text}>Add Pangali</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => handleNavigation('EventList')} style={styles.button}>
-                <Text style={styles.textTamil}>அனைத்து நிகழ்வுகளும்</Text>
-                <Text style={styles.text}>All Events</Text>
+            <TouchableOpacity onPress={() => {navigation.push('NewChild',{gender:'female'});}} style={styles.button}>
+                <Text style={styles.textTamil}>புதிய பெண்கள்</Text>
+                <Text style={styles.text}>Add Female</Text>
             </TouchableOpacity>
 
-            {/* <TouchableOpacity onPress={() => handleNavigation('test1')} style={styles.button}>
-                <Text style={styles.textTamil}>எங்களை பற்றி</Text>
-                <Text style={styles.text}>About Us</Text>
-            </TouchableOpacity> */}
+            
         </LinearGradient>
     );
 };

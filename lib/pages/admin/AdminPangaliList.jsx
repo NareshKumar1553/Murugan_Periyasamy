@@ -124,6 +124,12 @@ const style = StyleSheet.create({
         borderRadius: 8,
         color: 'black',
     },
+    filterButtonText: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        color: 'black',
+    },
     header: {
         fontSize: 24,
         fontWeight: 'bold',

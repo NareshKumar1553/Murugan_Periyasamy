@@ -16,6 +16,7 @@ import EventList from "../pages/EventList";
 import AdminHome from "../pages/admin/AdminHome";
 import PangaliEntry from "../pages/admin/PangaliEntry";
 import AdminPangaliList from "../pages/admin/AdminPangaliList";
+import NewChild from "../pages/admin/NewChild";
 
 const Stack = createNativeStackNavigator();
 
@@ -41,6 +42,7 @@ export default function StackNavigation() {
                 <Stack.Screen name="AdminHome" component={AdminHome} />
                 <Stack.Screen name="PangaliEntry" component={PangaliEntry} />
                 <Stack.Screen name="AdminPangaliList" component={AdminPangaliList} />
+                <Stack.Screen name="NewChild" component={NewChild} />
             </Stack.Navigator>
         </NavigationContainer>
     );

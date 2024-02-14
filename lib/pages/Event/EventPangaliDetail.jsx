@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Image, TextInput, Button, TouchableOpacity, Alert, StatusBar } from 'react-native';
+import { View, Text, StyleSheet,Linking, Image, TextInput, Button, TouchableOpacity, Alert, StatusBar } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LinearGradient from "react-native-linear-gradient";
@@ -19,6 +19,26 @@ const EventPangaliDetail = ({ navigation, route }) => {
     const handleTaxChange = (text) => {
         setTaxInput(text);
     };
+
+    const handlePhoneCall = (phno) => {
+        if(phno=="")
+        {
+            Alert.alert('Phone number not available', '', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false});
+        }
+        else
+        {
+            Linking.canOpenURL('tel:' + phno).then(supported => {
+                if (supported) {
+                    Linking.openURL('tel:' + phno);
+                } else {
+                    console.log("Phone call not supported");
+                    Alert.alert('Phone call not supported', '', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false});
+                    
+                }
+            }
+            );
+        }
+    }
 
     const handleUpdateTax = async () => {
         try {
@@ -84,6 +104,15 @@ const EventPangaliDetail = ({ navigation, route }) => {
             <TouchableOpacity onPress={handleUpdateTax} style={styles.button}>
                 <Text style={styles.buttonText}>Update Tax</Text>
             </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => {
+                handlePhoneCall(phno);
+            }}
+            style={styles.button}
+            >
+                <Text style={styles.buttonText}>Call</Text>
+            </TouchableOpacity>
+
         </LinearGradient>
     );
 };
@@ -134,7 +163,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         textAlign: 'center',
-        color: 'white',
+        color: 'black',
     },
 });
 

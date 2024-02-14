@@ -1,9 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Image, TextInput, Button, TouchableOpacity, StatusBar } from 'react-native';
+import { View, Text, StyleSheet, Image, Alert, Linking, TouchableOpacity, StatusBar } from 'react-native';
 import LinearGradient from "react-native-linear-gradient";
 
 const PangaliDetail = ({ navigation,route }) => {
     const { phno, tax, name, city, key } = route.params.event;
+
+    const handlePhoneCall = (phno) => {
+        if(phno=="")
+        {
+            Alert.alert('Phone number not available', '', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false});
+        }
+        else
+        {
+            Linking.canOpenURL('tel:' + phno).then(supported => {
+                if (supported) {
+                    Linking.openURL('tel:' + phno);
+                } else {
+                    console.log("Phone call not supported");
+                    Alert.alert('Phone call not supported', '', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false});
+                    
+                }
+            }
+            );
+        }
+    }
+
    
 
     return (
@@ -18,8 +39,14 @@ const PangaliDetail = ({ navigation,route }) => {
             <Text style={style.textCity}>City: {city}</Text>
             <Text style={style.textPhno}>Phone Number: {phno}</Text>
             
+        <TouchableOpacity onPress={() => {
+                handlePhoneCall(phno);
+            }}
+            style={style.button}
+            >
+                <Text style={style.buttonText}>Call</Text>
+            </TouchableOpacity>
         </View>
-
         </LinearGradient>
     );
 };
@@ -34,11 +61,17 @@ const style = StyleSheet.create({
     },
     button: {
         alignItems: 'center',
-        backgroundColor: '#f9f5fa',
+        backgroundColor: '#8bfca9',
         padding: 10,
         width: 200,
         marginTop: 16,
         borderRadius: 8,
+        color: 'green',
+    },
+    buttonText: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        textAlign: 'center',
         color: 'black',
     },
     text: {

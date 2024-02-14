@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, TextInput, Button, TouchableOpacity, StatusBar, Alert } from 'react-native';
+import { View, Text, StyleSheet, Image, TextInput, Linking, TouchableOpacity, StatusBar, Alert } from 'react-native';
 import LinearGradient from "react-native-linear-gradient";
 import firestore from '@react-native-firebase/firestore';
 
@@ -21,8 +21,31 @@ const PangaliEntry = ({ navigation, route }) => {
             })
             .catch((error) => {
                 console.error('Error saving data: ', error);
+                Alert.alert('Error saving data: ', error);
+                navigation.goBack();
             });
     };
+
+    const handlePhoneCall = () => {
+        console.log("Phone number:", phno);
+        if(phno=="")
+        {
+            Alert.alert('Phone number not available', '', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false});
+        }
+        else
+        {
+            Linking.canOpenURL('tel:' + phno).then(supported => {
+                if (supported) {
+                    Linking.openURL('tel:' + phno);
+                } else {
+                    console.log("Phone call not supported");
+                    Alert.alert('Phone call not supported', '', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false});
+                    
+                }
+            }
+            );
+        }
+    }
 
     return (
         <LinearGradient colors={['#f9f5fa', '#f3e1f7', '#f3e1f7']} style={styles.container}>
@@ -43,6 +66,9 @@ const PangaliEntry = ({ navigation, route }) => {
             />
             <TouchableOpacity onPress={handleSave} style={styles.button}>
                 <Text style={styles.buttonText}>Save</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handlePhoneCall} style={styles.button}>
+                <Text style={styles.buttonText}>Call</Text>
             </TouchableOpacity>
         </LinearGradient>
     );
