@@ -63,12 +63,11 @@ const Event = ({ navigation }) => {
     }
 
     return (
-        <LinearGradient colors={['#f9f5fa', '#f3e1f7', '#f3e1f7']} style={{ flex: 1 }}>
             <View style={style.container}>
                 <StatusBar backgroundColor='#f9f5fa' barStyle="dark-content" />
                 <View style={style.header}>
-                <Text style={style.textTamil}>நிகழ்வு பெயர்: {eventName}</Text>
-                <Text style={style.text}>Event Name: {eventName}</Text>
+                <Text style={style.text_header}>நிகழ்வு பெயர்: {eventName}</Text>
+                <Text style={style.text_header}>Event Name: {eventName}</Text>
                 </View>
                 <View style={style.footer}>
                 {pagali === 'true' && (
@@ -88,12 +87,9 @@ const Event = ({ navigation }) => {
                 <TouchableOpacity onPress={handleDeleteEvent} style={style.deleteButton}>
                     <Text style={style.buttonText}>Delete Event</Text>
                 </TouchableOpacity>
-
-
                 
             </View>
             </View>
-        </LinearGradient>
     );
 }
 
@@ -160,7 +156,7 @@ const style = StyleSheet.create({
         color: 'black',
     },
     text_header: {
-        color: "#fff",
+        color: "black",
         fontWeight: "bold",
         fontSize: 30,
     },
