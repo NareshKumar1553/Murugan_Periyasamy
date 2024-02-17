@@ -8,6 +8,7 @@ const EventPangaliList = ({ navigation, route }) => {
     const [isLoading, setLoading] = useState(true);
     const [filteredData, setFilteredData] = useState([]);
     const [ratio, setRatio] = useState("all");
+    const [tax, setTax] = useState(0);
 
     useEffect(() => {
         const { eventName } = route.params;
@@ -24,7 +25,19 @@ const EventPangaliList = ({ navigation, route }) => {
                 setFilteredData(data);
             });
 
-        return () => subscriber();
+        const taxSubscriber = firestore()
+            .collection('events')
+            .doc(eventName)
+            .onSnapshot((doc) => {
+                const tax = doc.data().totalTax;
+                setTax(tax);
+            });
+
+        return () => {
+            subscriber();
+            taxSubscriber();
+        }
+        
     }, []);
 
     const handleFilter = (ratio) => {
@@ -54,10 +67,17 @@ const EventPangaliList = ({ navigation, route }) => {
                 <Text style={style.header}>Event Name : {route.params.eventName}</Text>
                 <Text style={style.header}>பங்காளி பட்டியல்</Text>
 
-                <View style={{alignItems:'center'}}>
+                <View style={{flexDirection:'row'}}>
+                    <View>
                     <TouchableOpacity onPress={() => navigation.push('GenerateList', { eventName: route.params.eventName, filteredData: ratio })} style={style.generateButton}>
                         <Text style={style.generateButtonText}>Generate List</Text>
                     </TouchableOpacity>
+                    </View>
+                    <View style={{marginLeft: 20}}>
+                    <TouchableOpacity onPress={() => navigation.push('TaxFilter', { eventName: route.params.eventName })} style={style.taxButton}>
+                        <Text style={style.taxButtonText}>Total Tax : ₹{tax}</Text>
+                    </TouchableOpacity>
+                    </View>
                 </View>
 
                 <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={style.scrollViewContent}>
@@ -102,7 +122,7 @@ const style = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#DDDDDD',
         padding: 10,
-        width: 200,
+        width: 150,
         marginTop: 0,
         borderRadius: 8,
         color: 'black',
@@ -190,5 +210,22 @@ const style = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
+    },
+    taxButton: {
+        alignItems: 'center',
+        backgroundColor: '#DDDDDD',
+        padding: 10,
+        width: 170,
+        marginTop: 0,
+        borderRadius: 8,
+        color: 'black',
+        height: 40,
+        justifyContent:'center'
+    },
+    taxButtonText: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        textAlign: 'left',
+        color: 'black',
     },
 });

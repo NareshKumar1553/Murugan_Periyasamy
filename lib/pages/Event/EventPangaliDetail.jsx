@@ -48,6 +48,11 @@ const EventPangaliDetail = ({ navigation, route }) => {
                 tax: taxInput
             });
 
+            await firestore().collection('events').doc(eventName).update({
+                totalTax: firestore.FieldValue.increment(taxInput - tax)
+            });
+            
+
             console.log("Tax updated successfully!");
 
             // Add log to the database
@@ -94,7 +99,7 @@ const EventPangaliDetail = ({ navigation, route }) => {
             <Text style={styles.text}>Name: {name}</Text>
             <Text style={styles.text}>City: {city}</Text>
             <Text style={styles.text}>Phone Number: {phno}</Text>
-            <Text style={styles.text}>Tax: {tax}</Text>
+            <Text style={styles.text}>Tax: ₹{tax}</Text>
             <TextInput
                 keyboardType='numeric'
                 style={styles.input}

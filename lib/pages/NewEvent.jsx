@@ -3,6 +3,7 @@ import { View, TextInput, Button, StyleSheet, Text, TouchableOpacity, StatusBar,
 import CheckBox from '@react-native-community/checkbox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LinearGradient from "react-native-linear-gradient";
+import firestore from '@react-native-firebase/firestore';
 
 const NewEvent = ({navigation}) => {
     const [text, setText] = useState('');
@@ -24,11 +25,11 @@ const NewEvent = ({navigation}) => {
 
     const handleSave = async () => {
         if(text.length == 0){
-            alert("Error : Enter the Event Name");
+            Alert.alert("Error : Enter the Event Name");
             return;
         }
         if(!isChecked1 && !isChecked2){
-            alert("Select the List");
+            Alert.alert("Select the List");
             return;
         }
 
@@ -43,6 +44,24 @@ const NewEvent = ({navigation}) => {
             setText('');
             setIsChecked1(false);
             setIsChecked2(false);
+
+            const pangaliParentSnapshot = await firestore()
+                .collection('PangaliParent')
+                .get();
+
+            pangaliParentSnapshot.forEach(async (doc) => {
+                const data = doc.data();
+                await firestore().collection(text).doc(data.name).set({
+                    ...data,
+                    tax: 0
+                });
+            });
+
+            await firestore().collection('events').doc(text).set({
+                name: text,
+                totalTax: 0,
+            });
+
             navigation.reset({
                 index: 0,
                 routes: [{ name: 'Event' }],

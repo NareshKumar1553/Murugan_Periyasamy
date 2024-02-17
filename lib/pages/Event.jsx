@@ -23,33 +23,9 @@ const Event = ({ navigation }) => {
         setLoading(false);
     }, []);
 
-    useEffect(() => {
-        if (pagali === 'true') {
-            fetchPangaali();
-        }
-    }, [pagali]);
+   
 
-    const fetchPangaali = async () => {
-        try {
-            const pangaliParentSnapshot = await firestore()
-                .collection('PangaliParent')
-                .get();
-
-            pangaliParentSnapshot.forEach(async (doc) => {
-                const data = doc.data();
-                await firestore().collection(eventName).doc(data.name).set({
-                    ...data,
-                    tax: 0
-                });
-            });
-
-            await firestore().collection('events').doc(eventName).set({
-                name: eventName,
-            });
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    }
+    
 
     const handleDeleteEvent = () => {
         Alert.alert(
