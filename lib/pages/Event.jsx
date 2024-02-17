@@ -66,8 +66,11 @@ const Event = ({ navigation }) => {
         <LinearGradient colors={['#f9f5fa', '#f3e1f7', '#f3e1f7']} style={{ flex: 1 }}>
             <View style={style.container}>
                 <StatusBar backgroundColor='#f9f5fa' barStyle="dark-content" />
+                <View style={style.header}>
                 <Text style={style.textTamil}>நிகழ்வு பெயர்: {eventName}</Text>
                 <Text style={style.text}>Event Name: {eventName}</Text>
+                </View>
+                <View style={style.footer}>
                 {pagali === 'true' && (
                     <TouchableOpacity onPress={() => { navigation.push('EventPangali', { eventName: eventName }) }} style={style.button}>
                         <Text style={style.textTamil}>பங்காளி பட்டியல்</Text>
@@ -80,9 +83,15 @@ const Event = ({ navigation }) => {
                         <Text style={style.text}>Female List</Text>
                     </TouchableOpacity>
                 )}
+
+
                 <TouchableOpacity onPress={handleDeleteEvent} style={style.deleteButton}>
                     <Text style={style.buttonText}>Delete Event</Text>
                 </TouchableOpacity>
+
+
+                
+            </View>
             </View>
         </LinearGradient>
     );
@@ -93,17 +102,22 @@ export default Event;
 const style = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingTop: 16,
+        backgroundColor: "#f9f5fa",
     },
     header: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        marginTop: 0,
-        color: 'black',
-        textDecorationLine: 'underline',
+        flex: 1,
+        justifyContent: "flex-end",
+        paddingHorizontal: 20,
+        paddingBottom: 50,
+    },
+    footer: {
+        flex: 3,
+        backgroundColor: "#f3e1f7",
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
+        paddingHorizontal: 20,
+        paddingVertical: 30,
+        
     },
     textTamil: {
         fontSize: 20,
@@ -144,5 +158,22 @@ const style = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
         color: 'black',
+    },
+    text_header: {
+        color: "#fff",
+        fontWeight: "bold",
+        fontSize: 30,
+    },
+    signIn: {
+        width: "100%",
+        height: 50,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 10,
+    },
+    textSign: {
+        fontSize: 18,
+        fontWeight: "bold",
+        color: "white",
     },
 });
