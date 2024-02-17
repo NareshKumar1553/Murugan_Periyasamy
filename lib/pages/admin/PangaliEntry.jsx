@@ -8,9 +8,11 @@ const PangaliEntry = ({ navigation, route }) => {
     const [phoneNumber, setPhoneNumber] = useState(phno);
 
     const handleSave = () => {
+        console.log('key:', key);
+
         firestore()
             .collection('PangaliParent')
-            .doc(name)
+            .doc(key)
             .update({
                 phno: phoneNumber,
             })
