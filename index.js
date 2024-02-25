@@ -4,6 +4,6 @@
 
 import {AppRegistry} from 'react-native';
 import {name as appName} from './app.json';
-import StackNavigation from './lib/navigation/StackNavigation';
+import App from './App';
 
-AppRegistry.registerComponent(appName, () => StackNavigation);
+AppRegistry.registerComponent(appName, () => App);

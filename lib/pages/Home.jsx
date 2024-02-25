@@ -28,7 +28,7 @@ const HomeScreen = ({ navigation }) => {
                 <Text style={styles.text}>All Events</Text>
             </TouchableOpacity>
 
-            {/* <TouchableOpacity onPress={() => { navigation.push('test1') }} style={styles.button}>
+            {/* <TouchableOpacity onPress={() => { navigation.push('NoNetwork') }} style={styles.button}>
                 <Text style={styles.textTamil}>எங்களை பற்றி</Text>
                 <Text style={styles.text}>About Us</Text>
             </TouchableOpacity> */}

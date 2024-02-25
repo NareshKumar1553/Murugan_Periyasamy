@@ -18,14 +18,13 @@ import PangaliEntry from "../pages/admin/PangaliEntry";
 import AdminPangaliList from "../pages/admin/AdminPangaliList";
 import NewChild from "../pages/admin/NewChild";
 import TaxFilter from "../pages/Event/TaxFilter";
+import NoNetwork from "../animation/NoNetwork";
 
 const Stack = createNativeStackNavigator();
 
 export default function StackNavigation() {
-    useEffect(() => {
-        SplashScreen.hide();
-    }, []);
-
+    
+    console.log("Page : StackNavigation.jsx");
     return (
         <NavigationContainer>
             <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -45,6 +44,7 @@ export default function StackNavigation() {
                 <Stack.Screen name="AdminPangaliList" component={AdminPangaliList} />
                 <Stack.Screen name="NewChild" component={NewChild} />
                 <Stack.Screen name="TaxFilter" component={TaxFilter} />
+                <Stack.Screen name="NoNetwork" component={NoNetwork} />
             </Stack.Navigator>
         </NavigationContainer>
     );

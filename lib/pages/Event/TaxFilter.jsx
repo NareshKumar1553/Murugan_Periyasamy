@@ -105,7 +105,7 @@ const style = StyleSheet.create({
     },
     signIn: {
         width: "100%",
-        height: 50,
+        height: 'auto',
         justifyContent: "center",
         alignItems: "center",
         borderRadius: 10,
