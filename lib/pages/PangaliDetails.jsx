@@ -3,7 +3,13 @@ import { View, Text, StyleSheet, Image, Alert, Linking, TouchableOpacity, Status
 import LinearGradient from "react-native-linear-gradient";
 
 const PangaliDetail = ({ navigation,route }) => {
-    const { phno, tax, name, city, key } = route.params.event;
+    const { phno, tax, name, city, key, location } = route.params.event;
+    const {latitude,longitude} = location;
+    const url = 'https://www.google.com/maps/dir/?api=1&destination='+latitude+','+longitude+'&travelmode=driving';
+
+
+    console.log("PangaliDetail.jsx",phno, tax, name, city, key, latitude, longitude,url);
+
 
     const handlePhoneCall = (phno) => {
         if(phno=="")
@@ -45,7 +51,15 @@ const PangaliDetail = ({ navigation,route }) => {
             style={style.button}
             >
                 <Text style={style.buttonText}>Call</Text>
-            </TouchableOpacity>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => {
+                Linking.openURL(url);
+            }}
+            style={style.button}
+            >
+                <Text style={style.buttonText}>Navigate Me</Text>
+        </TouchableOpacity>
         </View>
         </LinearGradient>
     );
@@ -58,6 +72,7 @@ const style = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         paddingTop: 16,
+        marginTop:20
     },
     button: {
         alignItems: 'center',

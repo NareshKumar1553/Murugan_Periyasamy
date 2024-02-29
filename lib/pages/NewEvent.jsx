@@ -62,6 +62,8 @@ const NewEvent = ({navigation}) => {
             await firestore().collection('events').doc(text).set({
                 name: text,
                 totalTax: 0,
+                pangali: isChecked1,
+                totalExpense: 0
                 });
 
                 setIsLoading(false);
@@ -96,6 +98,8 @@ const NewEvent = ({navigation}) => {
                         <View style={style.container}>
                             <StatusBar backgroundColor='#f9f5fa' barStyle="dark-content" />
                             <ActivityIndicator size="large" color="#0000ff" />
+                            <Text style={style.text}>Creating Event...{'\n'}Please Wait...{'\n'}It will Take few Seconds...</Text>
+
                         </View>
                     </LinearGradient>
                 );

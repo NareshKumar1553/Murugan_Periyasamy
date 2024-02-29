@@ -4,23 +4,25 @@ import StackNavigation from "./lib/navigation/StackNavigation";
 import NetInfo from "@react-native-community/netinfo";
 import NoNetwork from "./lib/animation/NoNetwork";
 import SplashScreen from "react-native-splash-screen";
+import { requestUserPermission, NotificationListener } from "./src/utils/PushNotification";
 
 const App = () =>{
-    console.log("Page : App.jsx");
+    
     const [isConnected, setIsConnected] = useState(false);
 
     useEffect(() => {
         SplashScreen.hide();
+        NetworkCheck();
+        requestUserPermission();
+        NotificationListener();
     }, []);
 
-
-    NetInfo.fetch().then(state => {
-        console.log("Connection type", state.type);
-        console.log("Is connected?", state.isConnected);
+    const NetworkCheck =()=> NetInfo.fetch().then(state => {
         setIsConnected(state.isConnected);
       });
 
     return(
+        console.log("Page : App.jsx"),
         <View style={{flex: 1}}>
             {isConnected ? <StackNavigation /> : <NoNetwork />}
         </View>

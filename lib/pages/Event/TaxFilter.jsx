@@ -1,13 +1,17 @@
 import React,{useEffect,useState} from "react";
-import { View, Text, TouchableOpacity, StyleSheet, StatusBar } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, StatusBar,TextInput, Alert } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
-import firestore from "@react-native-firebase/firestore";
+import firestore, { firebase } from "@react-native-firebase/firestore";
 
 const TaxFilter = ({ navigation,route }) => {
 
     const eventName = route.params.eventName;
     const [data, setData] = useState([]);
     const [totalTax, setTotalTax] = useState(0);
+    const [selectedCategory, setSelectedCategory] = useState('Income');
+    const [expense, setExpense] = useState('');
+    const [amount, setAmount] = useState(0);
+
 
     console.log("Data ",data);
 
@@ -45,6 +49,37 @@ const TaxFilter = ({ navigation,route }) => {
         getDataFromFirestore();
     }, []);
 
+    const addExpense = async () => {
+        console.log("Adding expense", expense, amount);
+
+        try {
+            await firestore()
+                .collection('events')
+                .doc(eventName)
+                .collection('Expense')
+                .add({
+                    name: expense,
+                    tax: amount,
+                });
+
+            await firestore()
+                .collection('events')
+                .doc(eventName)
+                .set({
+                    totalTax: totalTax - amount,
+                });
+            
+            setTotalTax(totalTax - amount);
+            setExpense('');
+            setAmount(0);
+            Alert.alert("Success", "Expense added successfully");
+           
+        } catch (error) {
+            console.error(error);
+            Alert.alert("Error", "Error adding expense");
+
+        }
+    };
 
     return (
         <View style={style.container}>
@@ -55,17 +90,71 @@ const TaxFilter = ({ navigation,route }) => {
             </View>
             <View style={style.footer}>
 
-                {data.map((item, index) => (
+                <View style={style.category}>
+
+                <TouchableOpacity style={style.categoryButton} onPress={() => setSelectedCategory('Income')}>
+                    <LinearGradient
+                        colors={selectedCategory === 'Income' ? ["#08d4c4", "#01ab9d"] : ["#f9f5fa", "#f3e1f7"]}
+                        style={style.signIn}
+                    >
+                        <Text style={style.categoryButtonText}>வரவு</Text>
+                    </LinearGradient>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={style.categoryButton} onPress={() => setSelectedCategory('Expense')}>
+                    <LinearGradient
+                        colors={selectedCategory === 'Expense' ? ["#08d4c4", "#01ab9d"] : ["#f9f5fa", "#f3e1f7"]}
+                        style={style.signIn}
+                    >
+                        <Text style={style.categoryButtonText}>செலவு</Text>
+                    </LinearGradient>
+                </TouchableOpacity>
+
+                </View>
+                {selectedCategory === 'Income' ?
+
+                   data.map((item, index) => (
                     <TouchableOpacity
                         style={[style.signIn, { marginBottom: 10 }]}
-                        onPress={() => navigation.navigate("EventPangaliDetail", { event: item })}
+                        onPress={() => navigation.navigate("PangaliDetails", { event: item })}
                     >
                         <LinearGradient colors={["#08d4c4", "#01ab9d"]} style={style.signIn}>
                             <Text style={style.textSign}>{item.name}</Text>
                             <Text style={style.textSign}>₹{item.tax}</Text>
                         </LinearGradient>
                     </TouchableOpacity>
-                ))}
+                    ))
+                    :
+                    <View>
+                    <View style={style.category}>
+                    <TextInput
+                        style={{ height: 40, borderColor: 'gray', borderRadius:10 ,borderWidth: 1, width: '50%', marginRight: 10,color: 'black'}}
+                        placeholder="Enter the expense..."
+                        placeholderTextColor="black" 
+                        onChange={(e) => {setExpense(e)}}
+                                                
+                    />
+                    <TextInput
+                        style={{ height: 40, borderColor: 'gray', borderRadius:10, borderWidth: 1, width: '50%',color: 'black'}}
+                        placeholder="Enter the amount..."
+                        placeholderTextColor="black" 
+                        keyboardType="numeric"
+                        onChange={(e) => {setAmount(e)}}
+                    />
+                    </View>
+
+                    <TouchableOpacity
+                        style={[style.signIn, { marginTop: 10 }]}
+                        onPress={() => addExpense()}
+                    >
+                        <LinearGradient colors={["#08d4c4", "#01ab9d"]} style={style.signIn}>
+                            <Text style={style.categoryButtonText}>Add</Text>
+                        </LinearGradient>
+                    </TouchableOpacity>
+                    </View>                
+                }
+
+                
                                        
             </View>
         </View>
@@ -94,6 +183,22 @@ const style = StyleSheet.create({
         paddingVertical: 30,
         
     },
+    category: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    categoryButton: {
+        padding: 10,
+        borderRadius: 10,
+        width: '50%',
+    },
+    categoryButtonText: {
+        fontSize: 20,
+        fontWeight: "bold",
+        color: "white",
+        textAlign: 'center',
+    },
+
     text_header: {
         color: "#fff",
         fontWeight: "bold",

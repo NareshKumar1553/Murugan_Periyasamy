@@ -113,7 +113,7 @@ const style = StyleSheet.create({
         borderTopRightRadius: 30,
         paddingHorizontal: 20,
         paddingVertical: 30,
-        
+        alignItems: 'center',
     },
     textTamil: {
         fontSize: 20,

@@ -3,6 +3,7 @@ import React from "react";
 import { StatusBar, Text, TouchableOpacity, Linking } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 
+
 const NoNetwork = () => {
     console.log("Page : NoNetwork.jsx");
     return (

@@ -238,7 +238,7 @@ const style = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         textAlign: 'center',
-        marginTop: 0,
+        marginTop: 20,
         color:'black',
         textDecorationLine: 'underline',
     },

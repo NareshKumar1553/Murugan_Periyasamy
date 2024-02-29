@@ -57,7 +57,7 @@ const GenerateList = ({ route, navigation }) => {
         console.log('Converting to excel...');
         const worksheet = XLSX.utils.json_to_sheet(data);
         const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'SriPeriyasamyThirukovil');
         const excelData = XLSX.write(workbook, { type: 'base64', bookType: 'xlsx' });
         saveExcelFile(excelData, 'data.xlsx');
         console.log('Converted to excel successfully!');

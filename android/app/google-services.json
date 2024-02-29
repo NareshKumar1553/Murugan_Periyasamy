@@ -14,13 +14,21 @@
       },
       "oauth_client": [
         {
-          "client_id": "435464759466-5nbj4j4d9tvgabqpkcl26d7h17vuk3ms.apps.googleusercontent.com",
+          "client_id": "435464759466-udmtvmref5or6ujo7t1kj2ej0nj5o1qj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.murugan_periyasamy",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "435464759466-rav5un435ncf08db24f6dsrtq8t83963.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA8nYCN_Q1q7lmvS9zG0zYkUe3IwJ9k7To"
+          "current_key": "AIzaSyA0JKT28jcI_PLXx3JBZG4rcliprjPiKas"
         }
       ],
       "services": {
