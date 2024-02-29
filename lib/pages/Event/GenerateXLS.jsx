@@ -1,38 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { View, TouchableOpacity, StyleSheet, Text, Alert, StatusBar } from 'react-native';
-import XLSX from 'xlsx';
-import RNFS from 'react-native-fs';
-import firestore from '@react-native-firebase/firestore';
-import LinearGradient from 'react-native-linear-gradient';
+import React from "react";
+import { View, Text, StyleSheet, StatusBar, Alert, TouchableOpacity } from "react-native";
+import LinearGradient from "react-native-linear-gradient";
+import XLSX from "xlsx";
+import RNFS from "react-native-fs";
 
-const GenerateList = ({ route, navigation }) => {
-    const [data, setData] = useState([]);
 
-    console.log("Generate List Page");
+const GenerateXLS = ({route,navigation}) => {
+    const data = route.params.data;
     const eventName = route.params.eventName;
-    console.log("Event Name : ", eventName);
-    const filter = route.params.filteredData;
+    const name = route.params.name;
 
-    useEffect(() => {
-        fetchData();
-    }, []);
-
-    const fetchData = async () => {
-        console.log('Fetching data...');
-        let collectionRef = firestore().collection(eventName);
-        if (filter !== 'all') {
-            collectionRef = collectionRef.where('city', '==', filter);
-        }
-        const snapshot = await collectionRef.orderBy('city').get();
-        console.log('Snapshot fetched successfully!');
-        const fetchedData = snapshot.docs.map((doc) => doc.data());
-        setData(fetchedData);
-        console.log('Data fetched successfully!', fetchedData);
-    };
+    
 
     const saveExcelFile = async (excelData) => {
         console.log('Saving excel file...');
-        const currentDateTime = `${eventName}-${filter}-${new Date().toISOString().replace(/[-:.]/g, '')}`;
+        const currentDateTime = `${eventName}-${name}-${new Date().toISOString().replace(/[-:.]/g, '')}`;
         const fileName = `${currentDateTime}.xlsx`;
         const path = `${RNFS.DocumentDirectoryPath}/${fileName}`;
         await RNFS.writeFile(path, excelData, 'base64');
@@ -64,7 +46,6 @@ const GenerateList = ({ route, navigation }) => {
         console.log('Converted to excel successfully!');
     };
 
-    
     return (
         <LinearGradient colors={['#f9f5fa', '#f3e1f7', '#f3e1f7']} style={{ flex: 1 }}>
             <StatusBar backgroundColor="#f9f5fa" barStyle="dark-content" />
@@ -76,6 +57,9 @@ const GenerateList = ({ route, navigation }) => {
         </LinearGradient>
     );
 };
+
+
+export default GenerateXLS;
 
 const styles = StyleSheet.create({
     container: {
@@ -110,5 +94,3 @@ const styles = StyleSheet.create({
         elevation: 7,
     },
 });
-
-export default GenerateList;

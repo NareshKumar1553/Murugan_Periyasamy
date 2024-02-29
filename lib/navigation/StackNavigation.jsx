@@ -19,6 +19,7 @@ import AdminPangaliList from "../pages/admin/AdminPangaliList";
 import NewChild from "../pages/admin/NewChild";
 import TaxFilter from "../pages/Event/TaxFilter";
 import NoNetwork from "../animation/NoNetwork";
+import GenerateXLS from "../pages/Event/GenerateXLS";
 
 const Stack = createNativeStackNavigator();
 
@@ -45,6 +46,7 @@ export default function StackNavigation() {
                 <Stack.Screen name="NewChild" component={NewChild} />
                 <Stack.Screen name="TaxFilter" component={TaxFilter} />
                 <Stack.Screen name="NoNetwork" component={NoNetwork} />
+                <Stack.Screen name="GenerateXLS" component={GenerateXLS} />
             </Stack.Navigator>
         </NavigationContainer>
     );

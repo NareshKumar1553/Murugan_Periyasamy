@@ -7,7 +7,7 @@ import firestore from '@react-native-firebase/firestore';
 const { width } = Dimensions.get('window');
 const HomeScreen = ({ navigation }) => {
 
-    const [images, setImages] = useState(['https://media.istockphoto.com/id/1653095643/photo/indian-ganesha-festival-lord-ganesha.webp?b=1&s=170667a&w=0&k=20&c=p5kJclCRbmKlvV64ghDjgl0te9MITI9R5bf2sd5AW-I=',]);
+    const [images, setImages] = useState(['https://firebasestorage.googleapis.com/v0/b/sriperiyasamy-96.appspot.com/o/SriPeriyaSamyKovil%2FFrontView.png?alt=media&token=74abe6bd-7258-4fde-8464-212ab0efaae1','https://firebasestorage.googleapis.com/v0/b/sriperiyasamy-96.appspot.com/o/SriPeriyaSamyKovil%2Fperiyasamy.png?alt=media&token=1127dd60-6900-4df2-a4fb-94a398d21a5c']);
 
     useEffect(() => {
         const subcribe = firestore().collection('Images').doc('home').onSnapshot((snapshot) => {
