@@ -69,7 +69,7 @@ const EventPangaliList = ({ navigation, route }) => {
 
                 <View style={{flexDirection:'row'}}>
                     <View>
-                    <TouchableOpacity onPress={() => navigation.push('GenerateList', { eventName: route.params.eventName, filteredData: ratio })} style={style.generateButton}>
+                    <TouchableOpacity onPress={() => navigation.push('GenerateXLS', { eventName: route.params.eventName, data: filteredData, name:ratio })} style={style.generateButton}>
                         <Text style={style.generateButtonText}>Generate List</Text>
                     </TouchableOpacity>
                     </View>

@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { firebase } from '@react-native-firebase/firestore';
 import messaging from '@react-native-firebase/messaging';
+import DeviceInfo from 'react-native-device-info';
 
 export async function requestUserPermission() {
     console.log("requestUserPermission");
@@ -19,7 +20,10 @@ export async function requestUserPermission() {
 
 async function getToken() {
     console.log("getToken");
-  
+
+    const deviceName = await DeviceInfo.getDeviceName();
+    console.log('deviceName:', deviceName); 
+
     const fcmToken = await AsyncStorage.getItem('fcmToken');
     console.log('fcmToken:', fcmToken);
     
@@ -32,7 +36,7 @@ async function getToken() {
             await AsyncStorage.setItem('fcmToken', fcmToken);
             }
         }
-        firebase.firestore().collection('users').doc(fcmToken).set({
+        firebase.firestore().collection('users').doc(deviceName).set({
             token: fcmToken
         });
 
