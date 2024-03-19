@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, StatusBar, ScrollView, ActivityIndicator } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, StatusBar, ScrollView, ActivityIndicator, Image } from "react-native";
 import firestore from "@react-native-firebase/firestore";
 import LinearGradient from "react-native-linear-gradient";
 
@@ -107,6 +107,13 @@ const EventPangaliList = ({ navigation, route }) => {
                 ))}
                 </View>
             </ScrollView>
+            <View style={style.fabContainer}>
+                        <TouchableOpacity style={style.fabButton} onPress={() => { 
+                            navigation.push('Profile')
+                         }}>
+                            <Image source={require('../../assets/profile.png')} style={{ width: 30, height: 30 }} />
+                        </TouchableOpacity>
+                    </View>
         </LinearGradient>
     );
 };
@@ -153,6 +160,27 @@ const style = StyleSheet.create({
         textAlign: 'center',
         marginTop: 16,
         color: 'black',
+    },
+    fabContainer: {
+        position: 'absolute',
+        bottom: 16,
+        right: 16,
+    },
+    fabButton: {
+        backgroundColor: '#fbd3e9',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+            },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
     },
     filterButton: {
         alignItems: 'center',

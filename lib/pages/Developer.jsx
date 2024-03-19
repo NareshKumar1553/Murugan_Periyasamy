@@ -2,12 +2,15 @@ import React from 'react';
 import { View, Text, StyleSheet, StatusBar } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
-const ErrorPage = () => (
+const ErrorPage = ({route}) => {
+
+    return (
     <LinearGradient colors={['#83a4d4', '#FF5722']} style={styles.container}>
         <StatusBar backgroundColor='#83a4d4' barStyle="light-content" />
         <Text style={styles.errorText}>Oops! Something went wrong.</Text>
     </LinearGradient>
-);
+    );
+};
 
 const styles = StyleSheet.create({
     container: {

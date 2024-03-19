@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, StatusBar, ScrollView, ActivityIndicator } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, StatusBar, ScrollView, ActivityIndicator, Image } from "react-native";
 import firestore from "@react-native-firebase/firestore";
 import LinearGradient from "react-native-linear-gradient";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const EventList = ({ navigation }) => {
     const [data, setData] = useState([]);
@@ -24,6 +25,29 @@ const EventList = ({ navigation }) => {
         return () => subscriber();
     }, []);
 
+
+    async function handleRedirect(item) {
+        console.log("Item : ",item);
+
+        try{
+            await AsyncStorage.setItem('eventName', item.name);
+            await AsyncStorage.setItem('pangali', (item.pangali)+"");
+            await AsyncStorage.setItem('female', (item.female).toString());
+
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'Event' }],
+            });
+
+            console.log("Redirected to Event Page");
+        }
+        catch(e){
+            console.log("Error at Redirection : ",e);
+        }
+
+        
+    }
+
     if (loading) {
         return (
             <View style={style.loading}>
@@ -44,9 +68,7 @@ const EventList = ({ navigation }) => {
                     <TouchableOpacity
                         key={item.key}
                         onPress={() => {
-                            navigation.push("#", {
-                                event: item,
-                            });
+                            handleRedirect(item);
                         }}
                         style={style.button}
                     >
@@ -55,6 +77,13 @@ const EventList = ({ navigation }) => {
                     </TouchableOpacity>
                 ))}
             </ScrollView>
+            <View style={style.fabContainer}>
+                        <TouchableOpacity style={style.fabButton} onPress={() => { 
+                            navigation.push('Profile')
+                         }}>
+                            <Image source={require('../assets/profile.png')} style={{ width: 30, height: 30 }} />
+                        </TouchableOpacity>
+                    </View>
         </LinearGradient>
     );
 };
@@ -63,6 +92,7 @@ const style = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 16,
+        marginTop:20
     },
     scrollViewContainer: {
         alignItems: 'center',
@@ -120,6 +150,28 @@ const style = StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 5,
     },
+    fabContainer: {
+        position: 'absolute',
+        bottom: 16,
+        right: 16,
+    },
+    fabButton: {
+        backgroundColor: '#fbd3e9',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+            },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+    },
+
 });
 
 export default EventList;

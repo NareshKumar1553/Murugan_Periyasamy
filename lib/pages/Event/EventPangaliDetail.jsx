@@ -117,7 +117,13 @@ const EventPangaliDetail = ({ navigation, route }) => {
             >
                 <Text style={styles.buttonText}>Call</Text>
             </TouchableOpacity>
-
+            <View style={styles.fabContainer}>
+                        <TouchableOpacity style={styles.fabButton} onPress={() => { 
+                            navigation.push('Profile')
+                         }}>
+                            <Image source={require('../../assets/profile.png')} style={{ width: 30, height: 30 }} />
+                        </TouchableOpacity>
+            </View>
         </LinearGradient>
     );
 };
@@ -169,6 +175,27 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
         color: 'black',
+    },
+    fabContainer: {
+        position: 'absolute',
+        bottom: 16,
+        right: 16,
+    },
+    fabButton: {
+        backgroundColor: '#fbd3e9',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+            },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
     },
 });
 

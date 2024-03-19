@@ -63,6 +63,7 @@ const NewEvent = ({navigation}) => {
                 name: text,
                 totalTax: 0,
                 pangali: isChecked1,
+                female: isChecked2,
                 totalExpense: 0
                 });
 

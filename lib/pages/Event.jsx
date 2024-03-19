@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, StatusBar, Alert, ActivityIndicator } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, StatusBar, Alert, ActivityIndicator, Image } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import firestore from '@react-native-firebase/firestore';
 import LinearGradient from "react-native-linear-gradient";
@@ -40,13 +40,14 @@ const Event = ({ navigation }) => {
                 {
                     text: "Yes",
                     onPress: () => {
-                        AsyncStorage.clear().then(() => {
-                            navigation.reset({
-                                index: 0,
-                                routes: [{ name: 'Home' }],
-                            });
-                            console.log("Event Deleted");
+                        AsyncStorage.removeItem('eventName');
+                        AsyncStorage.removeItem('pangali');
+                        AsyncStorage.removeItem('female');
+                        navigation.reset({
+                            index: 0,
+                            routes: [{ name: 'Home' }],
                         });
+                        
                     }
                 }
             ]
@@ -87,6 +88,15 @@ const Event = ({ navigation }) => {
                 <TouchableOpacity onPress={handleDeleteEvent} style={style.deleteButton}>
                     <Text style={style.buttonText}>Delete Event</Text>
                 </TouchableOpacity>
+
+                <View style={style.fabContainer}>
+                        <TouchableOpacity style={style.fabButton} onPress={() => { 
+                            navigation.push('Profile')
+                         }}>
+                            <Image source={require('../assets/profile.png')} style={{ width: 30, height: 30 }} />
+                        </TouchableOpacity>
+                </View>
+
                 
             </View>
             </View>
@@ -106,6 +116,7 @@ const style = StyleSheet.create({
         paddingHorizontal: 20,
         paddingBottom: 50,
     },
+    
     footer: {
         flex: 3,
         backgroundColor: "#f3e1f7",
@@ -172,4 +183,23 @@ const style = StyleSheet.create({
         fontWeight: "bold",
         color: "white",
     },
+    fabContainer: {
+        position: 'absolute', // Here's the trick
+        bottom: 20, // Position from bottom
+        right: 20, // Position from right
+      },
+        fabButton: {
+            width: 60,
+            height: 60,
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: '#f52052',
+            borderRadius: 30,
+        },
+        loading: {
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+
 });

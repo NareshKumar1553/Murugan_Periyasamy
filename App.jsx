@@ -8,7 +8,7 @@ import { requestUserPermission, NotificationListener } from "./src/utils/PushNot
 
 const App = () =>{
     
-    const [isConnected, setIsConnected] = useState(false);
+    const [isConnected, setIsConnected] = useState(true);
 
     useEffect(() => {
         SplashScreen.hide();
@@ -24,7 +24,7 @@ const App = () =>{
     return(
         console.log("Page : App.jsx"),
         <View style={{flex: 1}}>
-            {isConnected ? <StackNavigation /> : <NoNetwork />}
+            {!isConnected ?  <NoNetwork />: <StackNavigation />}
         </View>
     );
 }

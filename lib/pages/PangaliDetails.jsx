@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Image, Alert, Linking, TouchableOpacity, StatusBar } from 'react-native';
+import { View, Text, StyleSheet, Image, Alert, Linking, TouchableOpacity, StatusBar,  } from 'react-native';
 import LinearGradient from "react-native-linear-gradient";
 
 const PangaliDetail = ({ navigation,route }) => {
@@ -60,6 +60,14 @@ const PangaliDetail = ({ navigation,route }) => {
             >
                 <Text style={style.buttonText}>Navigate Me</Text>
         </TouchableOpacity>
+        </View>
+
+        <View style={style.fabContainer}>
+                        <TouchableOpacity style={style.fabButton} onPress={() => { 
+                            navigation.push('Profile')
+                         }}>
+                            <Image source={require('../assets/profile.png')} style={{ width: 30, height: 30 }} />
+                        </TouchableOpacity>
         </View>
         </LinearGradient>
     );
@@ -145,5 +153,26 @@ const style = StyleSheet.create({
         padding: 8,
         width: 200,
         borderRadius: 8,
+    },
+    fabContainer: {
+        position: 'absolute',
+        bottom: 16,
+        right: 16,
+    },
+    fabButton: {
+        backgroundColor: '#fbd3e9',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+            },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
     },
 });
