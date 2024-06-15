@@ -23,6 +23,12 @@ import Test from "../testing/test";
 import GoogleAuth from "../auth/GoogleAuth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Profile from "../pages/Profile";
+import Calender from "../pages/Hall/Calender";
+import HallProfile from "../pages/Hall/HallProfile";
+import HallBookingList from "../pages/Hall/HallBookingList";
+import HallRegistration from "../pages/Hall/HallRegistration";
+import BillConfirmation from "../pages/Hall/BillConfirmation";
+
 
 const Stack = createNativeStackNavigator();
 
@@ -99,7 +105,12 @@ export default function StackNavigation() {
                 <Stack.Screen name="GenerateXLS" component={GenerateXLS} />
                 <Stack.Screen name="Test" component={Test} />
                 <Stack.Screen name="Profile" component={Profile} />
-
+                <Stack.Screen name="Calender" component={Calender} />
+                <Stack.Screen name="HallProfile" component={HallProfile} />
+                <Stack.Screen name="HallBookingList" component={HallBookingList} />
+                <Stack.Screen name="GoogleSign" component={GoogleAuth} />
+                <Stack.Screen name="HallRegistration" component={HallRegistration}  />
+                <Stack.Screen name="BillConfirmation" component={BillConfirmation}  />
             </Stack.Navigator>
         </NavigationContainer>
     );

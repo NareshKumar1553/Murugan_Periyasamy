@@ -3,15 +3,27 @@ import { View, TextInput, Button, Alert, StyleSheet, Text, StatusBar } from 'rea
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LinearGradient from 'react-native-linear-gradient';
+import firestore from "@react-native-firebase/firestore";
 
 const LockPage = ({navigation}) => {
     const [pin, setPin] = useState('');
     const [isEventExist, setIsEventExist] = useState(false);
+    const [AdminPin, setAdminPin] = useState('0000');
 
     useEffect(() => {
         AsyncStorage.getItem('eventName').then((value) => {
             setIsEventExist(value !== null);
         });
+        firestore().collection('Admin').doc('AdminPin').get().then((doc) => {
+            if (doc.exists) {
+                setAdminPin(doc.data().pin);
+            } else {
+                console.log('No such document!');
+            }
+        }).catch((error) => {
+            console.log('Error at getting Admin Pin :', error);
+        }
+        );
     }, []);
 
     const handlePinChange = (pin) => {
@@ -20,8 +32,8 @@ const LockPage = ({navigation}) => {
 
     const handlePinComplete = async (pin) => {
         try {
-            const storedPin = '9659';
-            const AdminPin = '9623';
+            console.log('Checking pin:', pin);
+            console.log('Admin Pin:', AdminPin);
             if (pin === AdminPin) {
                 navigation.reset({
                     index: 0,

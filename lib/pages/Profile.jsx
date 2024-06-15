@@ -37,7 +37,7 @@ const Profile = ({navigation}) => {
                     <Text style={style.text}>Profile</Text>
                     <Text style={style.text}>Name: {user.displayName}</Text>
                     <Text style={style.text}>Email: {user.email}</Text>
-                    <Text style={style.text}>UID: {user.uid}</Text>
+                    
                     
                 
                 <TouchableOpacity style={style.button} onPress={() => {
@@ -52,6 +52,12 @@ const Profile = ({navigation}) => {
                 <Text style={style.text}>No Account found</Text>
             )}
 
+        
+        <TouchableOpacity style={style.footerButton} onPress={() => {
+            navigation.navigate('LockScreen');
+        }}>
+            <Text style={style.footerText}>LogIn as ADMIN</Text>
+        </TouchableOpacity>
         </View>
     );
 };
@@ -79,5 +85,22 @@ const style = StyleSheet.create({
         alignItems: 'center',
 
     },
+    footerButton: {
+        backgroundColor: '#fbd3e9',
+        padding: 10,
+        margin: 10,
+        borderRadius: 25,
+        width: 300,
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+    },
+    footerText: {
+        fontSize: 18,
+        color: 'black',
+        fontFamily: 'courier new',
+        fontWeight: 'bold',
+
+    },
+
    
 });

@@ -99,12 +99,12 @@ const HomeScreen = ({ navigation }) => {
                         </TouchableOpacity>
                     </View>
 
-                    {/* <View style={{alignItems:'center'}}>
-                <TouchableOpacity onPress={() => { navigation.push('Browser',{url:'https://nareshkumar.me'}) }} style={styles.button}>
-                    <Text style={styles.textTamil}>அனைத்து நிகழ்வுகளும்</Text>
-                    <Text style={styles.text}>Test</Text>
-                </TouchableOpacity>
-                </View> */}
+                    <View style={{ alignItems: 'center' }}>
+                        <TouchableOpacity onPress={() => { navigation.push('Calender') }} style={styles.button}>
+                            <Text style={styles.textTamil}>மண்டபம் முன்பதிவு</Text>
+                            <Text style={styles.text}>Hall Booking</Text>
+                        </TouchableOpacity>
+                    </View>
 
                 </ScrollView>
                     <View style={styles.fabContainer}>

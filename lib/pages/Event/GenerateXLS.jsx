@@ -1,39 +1,85 @@
 import React from "react";
-import { View, Text, StyleSheet, StatusBar, Alert, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, StatusBar, Alert, TouchableOpacity, PermissionsAndroid } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import XLSX from "xlsx";
 import RNFS from "react-native-fs";
 
 
 const GenerateXLS = ({route,navigation}) => {
+    console.log('GenerateXLS:', route.params);
+
     const data = route.params.data;
     const eventName = route.params.eventName;
     const name = route.params.name;
 
-    
+    let eName = '';
 
-    const saveExcelFile = async (excelData) => {
-        console.log('Saving excel file...');
-        const currentDateTime = `${eventName}-${name}-${new Date().toISOString().replace(/[-:.]/g, '')}`;
-        const fileName = `${currentDateTime}.xlsx`;
-        const path = `${RNFS.DocumentDirectoryPath}/${fileName}`;
-        await RNFS.writeFile(path, excelData, 'base64');
-        const downloadPath = `${RNFS.DownloadDirectoryPath}/${fileName}`;
-        await RNFS.moveFile(path, downloadPath);
-        console.log('File downloaded successfully!', downloadPath);
-        Alert.alert(
-            'File downloaded successfully!',
-            downloadPath,
-            [
-                {
-                    text: 'OK',
-                    onPress: () => console.log('OK Pressed'),
-                },
-            ],
-            { cancelable: false },
-        );
+    if(eventName==undefined || name==undefined)
+    {
+        Alert.alert('Error', 'Event name or name not found', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
         navigation.pop();
-    };
+    }
+
+    if(eventName.includes(' '))
+    {
+        eName = eventName.replace(/\s/g, '');
+        console.log('Event name:', eName);
+    }
+    else
+    {
+        eName = eventName;
+        console.log('Event name:', eventName);
+    }
+
+    const saveExcelFile = async (excelData, fileName) => {
+        fileName = `${eName}_${name}.xlsx`;
+        console.log('Saving excel file...');
+        const path = `${RNFS.DocumentDirectoryPath}/${fileName}`;
+        const granted = await PermissionsAndroid.request(
+            PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+            {
+                title: 'Storage Permission',
+                message: 'App needs access to your storage to save the file',
+                buttonNeutral: 'Ask Me Later',
+                buttonNegative: 'Cancel',
+                buttonPositive: 'OK',
+            },
+        );
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+            
+            await RNFS.writeFile(path, excelData, 'base64');
+            const downloadPath = `${RNFS.DocumentDirectoryPath}/${fileName}`;
+            await RNFS.moveFile(path, downloadPath);
+            console.log('File downloaded successfully!', downloadPath);
+            Alert.alert(
+                'File downloaded successfully!',
+                downloadPath,
+                [
+                    {
+                        text: 'OK',
+                        onPress: () => console.log('OK Pressed'),
+                    },
+                ],
+                { cancelable: false },
+            );
+            navigation.pop();
+        } else {
+            console.log('Storage permission denied');
+            Alert.alert(
+                'Permission Denied',
+                'App needs access to your storage to save the file',
+                [
+                    {
+                        text: 'OK',
+                        onPress: () => console.log('OK Pressed'),
+                    },
+                ],
+                { cancelable: false },
+            );
+        }
+    }; 
+
+   
 
     const convertToExcel = () => {
         console.log('Converting to excel...');

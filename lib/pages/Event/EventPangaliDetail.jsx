@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet,Linking, Image, TextInput, Button, TouchableOpacity, Alert, StatusBar } from 'react-native';
+import { View, Text, StyleSheet,Linking, Image, TextInput, Button, TouchableOpacity, Alert, StatusBar, PermissionsAndroid } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LinearGradient from "react-native-linear-gradient";
+import SmsAndroid from 'react-native-get-sms-android';
 
 const EventPangaliDetail = ({ navigation, route }) => {
     const { phno, tax, name, city, key } = route.params.event;
@@ -14,7 +15,29 @@ const EventPangaliDetail = ({ navigation, route }) => {
             console.log('Text:', value);
             setEventName(value);
         });
+        requestSMSPermission();
     }, []);
+
+    const requestSMSPermission = async () => {
+        try {
+            const granted = await PermissionsAndroid.request(
+                PermissionsAndroid.PERMISSIONS.SEND_SMS,
+                {
+                    title: 'SMS Permission',
+                    message: 'This app requires permission to send SMS.',
+                    buttonPositive: 'OK',
+                    buttonNegative: 'Cancel',
+                }
+            );
+            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                console.log('SMS permission granted');
+            } else {
+                console.log('SMS permission denied');
+            }
+        } catch (error) {
+            console.log('Error requesting SMS permission:', error);
+        }
+    };
 
     const handleTaxChange = (text) => {
         setTaxInput(text);
@@ -82,12 +105,52 @@ const EventPangaliDetail = ({ navigation, route }) => {
                 ],
                 { cancelable: false },
             );
+            Alert.alert(
+                'Do you want to send receipt to ' + name + '?',
+                '',
+                [
+                    {
+                        text: 'Yes',
+                        onPress: () => sendMessage(),
+                    },
+                    {
+                        text: 'No',
+                        onPress: () => console.log('No Pressed'),
+                    },
+                ],
+                { cancelable: false },
+            );
             navigation.pop();
         } catch (error) {
             console.error("Error updating tax:", error);
         }
     };
 
+    const sendMessage = async () => {
+        console.log('Sending message to ' + phno);
+        let message = 'ஸ்ரீ பெரியசாமி காமாட்சி அம்மன் திருக்கோவில்,' +
+
+                       '\n\nவணக்கம், '+ name + '!\n\n    நீங்கள் ஸ்ரீ பெரியசாமி காமாட்சி அம்மன் கோவிலுக்கு '+ eventName+' நன்கொடையாக கொடுக்கப்பட்ட தொகை ₹' + taxInput +'.'+ '\n    நன்றி,   \n\n '+eventName+' விழா குழுவினர்.';
+        
+                        
+        try {
+            SmsAndroid.autoSend(
+                phno,
+                
+                message,
+
+                (fail) => {
+                    console.log('Failed with this error: ' + fail);
+                },
+                (success) => {
+                    console.log('SMS sent successfully', success);
+                },
+            );
+    }
+    catch (error) {
+        console.error("Error sending message:", error);
+    }
+    };
     return (
         <LinearGradient colors={['#f9f5fa', '#f3e1f7', '#f3e1f7']} style={styles.container}>
             <StatusBar backgroundColor='#f9f5fa' barStyle="dark-content" />
