@@ -28,6 +28,7 @@ import HallProfile from "../pages/Hall/HallProfile";
 import HallBookingList from "../pages/Hall/HallBookingList";
 import HallRegistration from "../pages/Hall/HallRegistration";
 import BillConfirmation from "../pages/Hall/BillConfirmation";
+import EventBillGeneration from "../pages/Event/EventBillGeneration";
 
 
 const Stack = createNativeStackNavigator();
@@ -111,6 +112,7 @@ export default function StackNavigation() {
                 <Stack.Screen name="GoogleSign" component={GoogleAuth} />
                 <Stack.Screen name="HallRegistration" component={HallRegistration}  />
                 <Stack.Screen name="BillConfirmation" component={BillConfirmation}  />
+                <Stack.Screen name="EventBillGeneration" component={EventBillGeneration}    />
             </Stack.Navigator>
         </NavigationContainer>
     );

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Text, TextInput, View, Button, StyleSheet, TouchableOpacity, StatusBar,  } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { Picker } from '@react-native-picker/picker';
+import firestore from '@react-native-firebase/firestore';
 
 const HallRegistration = ({ navigation, route }) => {
 
@@ -42,6 +43,26 @@ const HallRegistration = ({ navigation, route }) => {
             return;
         }
 
+        // Store the selectedDate to the firestore HallBooking Collection
+        firestore()
+            .collection('HallBooking')
+            .add({
+                selectedDate,
+                name,
+                phoneNumber,
+                email,
+                city,
+                amount,
+                functionName,
+
+            })
+            .then(() => {
+                console.log('Selected date stored successfully');
+            })
+            .catch((error) => {
+                console.error('Error storing selected date:', error);
+            });
+
         // Navigate to the profile page with the form data as parameters
         navigation.navigate('BillConfirmation', { name, phoneNumber, email, city, selectedDate, amount,functionName});
     };
@@ -79,9 +100,8 @@ const HallRegistration = ({ navigation, route }) => {
                     style={styles.input}
                 >
                     <Picker.Item label="Select City" value="" />
-                    <Picker.Item label="Singalandapuram" value="Singalandapuram" />
-                    <Picker.Item label="Nama" value="Nama" />
-                    <Picker.Item label="kiut" value="kiut" />
+                    <Picker.Item label="சிங்களாந்தபுரம்" value="சிங்களாந்தபுரம்" />
+                    <Picker.Item label="மற்றவை" value="மற்றவை" />
                 </Picker>
 
                 <Picker
@@ -92,7 +112,12 @@ const HallRegistration = ({ navigation, route }) => {
                     <Picker.Item label="Select Function" value="" />
                     <Picker.Item label="திருமணம்" value="திருமணம்" />
                     <Picker.Item label="வளைகாப்பு" value="வளைகாப்பு" />
-                    <Picker.Item label="others" value="Others" />
+                    <Picker.Item label="பிறந்தநாள்" value="பிறந்தநாள்" />
+                    <Picker.Item label="காது குத்து" value="காது குத்து" />
+                    <Picker.Item label="நிச்சயதார்த்தம்" value="நிச்சயதார்த்தம்" />
+                    <Picker.Item label="மணமகள் அழைப்பு" value="மணமகள் அழைப்பு" />
+                    <Picker.Item label="வரவேற்பு" value="வரவேற்பு" />
+                    <Picker.Item label="மற்றவை" value="மற்றவை" />
                 </Picker>
 
 

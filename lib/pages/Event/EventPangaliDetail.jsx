@@ -3,18 +3,23 @@ import { View, Text, StyleSheet,Linking, Image, TextInput, Button, TouchableOpac
 import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LinearGradient from "react-native-linear-gradient";
-import SmsAndroid from 'react-native-get-sms-android';
 
 const EventPangaliDetail = ({ navigation, route }) => {
     const { phno, tax, name, city, key } = route.params.event;
     const [taxInput, setTaxInput] = useState(tax);
     const [eventName, setEventName] = useState('');
+    const [eventDate, setEventDate] = useState('');
 
     useEffect(() => {
         AsyncStorage.getItem('eventName').then((value) => {
             console.log('Text:', value);
             setEventName(value);
         });
+        AsyncStorage.getItem('eventDate').then((value) => {
+            console.log('Date:', value);
+            setEventDate(value);
+        }
+        );
         requestSMSPermission();
     }, []);
 
@@ -111,7 +116,7 @@ const EventPangaliDetail = ({ navigation, route }) => {
                 [
                     {
                         text: 'Yes',
-                        onPress: () => sendMessage(),
+                        onPress: () => navigation.push('EventBillGeneration', { name: name, tax: taxInput, phno: phno, eventName: eventName, city: city, eventDate: eventDate}),
                     },
                     {
                         text: 'No',
@@ -126,31 +131,6 @@ const EventPangaliDetail = ({ navigation, route }) => {
         }
     };
 
-    const sendMessage = async () => {
-        console.log('Sending message to ' + phno);
-        let message = 'ஸ்ரீ பெரியசாமி காமாட்சி அம்மன் திருக்கோவில்,' +
-
-                       '\n\nவணக்கம், '+ name + '!\n\n    நீங்கள் ஸ்ரீ பெரியசாமி காமாட்சி அம்மன் கோவிலுக்கு '+ eventName+' நன்கொடையாக கொடுக்கப்பட்ட தொகை ₹' + taxInput +'.'+ '\n    நன்றி,   \n\n '+eventName+' விழா குழுவினர்.';
-        
-                        
-        try {
-            SmsAndroid.autoSend(
-                phno,
-                
-                message,
-
-                (fail) => {
-                    console.log('Failed with this error: ' + fail);
-                },
-                (success) => {
-                    console.log('SMS sent successfully', success);
-                },
-            );
-    }
-    catch (error) {
-        console.error("Error sending message:", error);
-    }
-    };
     return (
         <LinearGradient colors={['#f9f5fa', '#f3e1f7', '#f3e1f7']} style={styles.container}>
             <StatusBar backgroundColor='#f9f5fa' barStyle="dark-content" />
