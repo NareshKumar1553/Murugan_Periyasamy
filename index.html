@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="./android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png">
+    <title>Sri PeriyaSamy Kovil - App Documentation</title>
+    <meta name="description" content="Sri PeriyaSamy Kovil is an Android app developed to help manage the activities and events at Sri PeriyaSamy Kamatchi Amman Kovil. This
+    app is designed to assist the temple manager and other admins in organizing events, managing hall bookings, handling finances, and generating invoices.">
+    <meta name="keywords" content="Sri PeriyaSamy Kovil, Sri PeriyaSamy Kamatchi Amman Kovil, temple management, event management, hall booking, invoice generation, tax handling, excel export">
+    <meta name="author" content="Naresh Kumar S">
+    <meta name="robots" content="index, follow">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        p {
+            margin: 0 0 10px;
+        }
+        code {
+            background-color: #eee;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+        pre {
+            background-color: #eee;
+            padding: 10px;
+            border-radius: 4px;
+            overflow: auto;
+        }
+        ul {
+            margin: 0 0 10px 20px;
+        }
+        footer {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .footer-image {
+            display: block;
+            margin: 20px auto;
+            width: 100%;
+            max-width: 800px;
+        }
+        .profile-link {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+
+    </style>
+</head>
+<body>
+
+    
+    <div class="container">
+        <img src="https://github-production-user-asset-6210df.s3.amazonaws.com/89716658/340200283-3131b391-16d3-4483-8f11-0720b46b55f4.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240617%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240617T064716Z&X-Amz-Expires=300&X-Amz-Signature=e7b1b9350b11dac8d06045302b367c699546968bcce970e45f82a3f13394e032&X-Amz-SignedHeaders=host&actor_id=89716658&key_id=0&repo_id=748160790" alt="Sri PeriyaSamy Kamatchi Amman" class="footer-image" />
+   
+        <h1>ஸ்ரீ பெரியசாமி காமாட்சி கோவில்</h1>
+        <p>Sri PeriyaSamy Kovil is an Android app developed to help manage the activities and events at Sri PeriyaSamy Kamatchi Amman Kovil. This app is designed to assist the temple manager and other admins in organizing events, managing hall bookings, handling finances, and generating invoices.</p>
+        
+        <h2>Features</h2>
+        <ul>
+            <li><strong>Event Management</strong>
+                <ul>
+                    <li>Fetch data from the master database to create event collections.</li>
+                    <li>Store and manage member (PANGALI) details.</li>
+                </ul>
+            </li>
+            <li><strong>Tax Handling (Vari)</strong>
+                <ul>
+                    <li>Add and update event-related taxes.</li>
+                    <li>Automate accounting tasks by handling credit and debit transactions.</li>
+                    <li>Analyze profit and loss based on tax data.</li>
+                </ul>
+            </li>
+            <li><strong>Invoice Generation</strong>
+                <ul>
+                    <li>Generate invoices for events.</li>
+                    <li>Store invoices in Firebase storage.</li>
+                    <li>Provide access to download and share invoices.</li>
+                </ul>
+            </li>
+            <li><strong>Hall Booking Management</strong>
+                <ul>
+                    <li>Display hall availability using react-native-calendar.</li>
+                    <li>Differentiate between booked and non-booked dates for easy scheduling.</li>
+                    <li>Collect and manage booking details: Name, Phone Number, Email, Function Date, and Amount.</li>
+                </ul>
+            </li>
+            <li><strong>Excel Export</strong>
+                <ul>
+                    <li>Export event and member data in Excel format for reporting and analysis.</li>
+                </ul>
+            </li>
+            <li><strong>Multi-Admin Support</strong>
+                <ul>
+                    <li>Enable multiple admins to manage temple activities collaboratively.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h2>Tech Stack</h2>
+        <ul>
+            <li><strong>Frontend:</strong> React Native</li>
+            <li><strong>Backend:</strong> Firebase</li>
+            <li><strong>Database:</strong> Firebase Firestore</li>
+            <li><strong>Storage:</strong> Firebase Storage</li>
+        </ul>
+
+        <h2>Installation</h2>
+        <p>Follow these steps to set up the project:</p>
+        <pre>
+<code>
+1. Clone the repository:
+   git clone https://github.com/yourusername/SriPeriyaSamyKovil.git
+
+2. Navigate to the project directory:
+   cd SriPeriyaSamyKovil
+
+3. Install dependencies:
+   npm install
+
+4. Set up Firebase:
+   - Create a Firebase project at <a href="https://console.firebase.google.com/">Firebase Console</a>.
+   - Add the Firebase configuration to your project.
+
+5. Run the app:
+   npm start
+</code>
+        </pre>
+
+        <h2>Usage</h2>
+        <p>Here's how you can use the app:</p>
+        <ul>
+            <li><strong>Event Management:</strong> Create and manage events by fetching member data and storing event details.</li>
+            <li><strong>Tax Handling:</strong> Add taxes for events and automate accounting tasks.</li>
+            <li><strong>Invoice Generation:</strong> Generate, store, and share invoices for events.</li>
+            <li><strong>Hall Booking:</strong> Manage hall bookings with an interactive calendar and booking details form.</li>
+            <li><strong>Excel Export:</strong> Export data to Excel format for offline use and analysis.</li>
+        </ul>
+
+        <h2>Contributing</h2>
+        <p>Contributions are welcome! Please fork the repository and create a pull request with your changes. Ensure that your code adheres to the project's coding standards and includes relevant tests.</p>
+
+        <h2>License</h2>
+        <p>This project is licensed under the MIT License. See the <a href="LICENSE">LICENSE</a> file for details.</p>
+
+        <h2>Acknowledgements</h2>
+        <p>Developed by <a href="https://nareshkumar.zgen.tech" class="profile-link">Naresh Kumar S</a> Special thanks to the Sri PeriyaSamy Kamatchi Amman Kovil management team for their support and feedback.</p>
+
+        <h2>Contact</h2>
+        <p>For any inquiries or support, please contact [your email address].</p>
+
+        <footer>
+            <p><strong>Sri PeriyaSamy Kovil</strong> - Simplifying temple and event management.</p>
+        </footer>
+
+        <img src="https://firebasestorage.googleapis.com/v0/b/sriperiyasamy-96.appspot.com/o/Footer%201.png?alt=media&token=819a6b49-7777-4f55-8258-765ee637eb5a" alt="Sri PeriyaSamy Kamatchi Amman" class="footer-image" />
+    </div>
+</body>
+</html>
