@@ -1,79 +1,86 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
-# Getting Started
+![338928316-0735988e-ef75-40a3-8ff2-c17ce9350385](https://github.com/NareshKumar1553/Murugan_Periyasamy/assets/89716658/3131b391-16d3-4483-8f11-0720b46b55f4)
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+# Sri PeriyaSamy Kovil
 
-## Step 1: Start the Metro Server
+Sri PeriyaSamy Kovil is an Android app developed to help manage the activities and events at Sri PeriyaSamy Kamatchi Amman Kovil. This app is designed to assist the temple manager and other admins in organizing events, managing hall bookings, handling finances, and generating invoices.
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+## Features
 
-To start Metro, run the following command from the _root_ of your React Native project:
+- **Event Management**
+  - Fetch data from the master database to create event collections.
+  - Store and manage member (பங்காலி) details.
+  
+- **Tax Handling (வரி)**
+  - Add and update event-related taxes.
+  - Automate accounting tasks by handling credit and debit transactions.
+  - Analyze profit and loss based on tax data.
 
-```bash
-# using npm
-npm start
+- **Invoice Generation**
+  - Generate invoices for events.
+  - Store invoices in Firebase storage.
+  - Provide access to download and share invoices.
 
-# OR using Yarn
-yarn start
+- **Hall Booking Management**
+  - Display hall availability using react-native-calendar.
+  - Differentiate between booked and non-booked dates for easy scheduling.
+  - Collect and manage booking details: Name, Phone Number, Email, Function Date, and Amount.
+
+- **Excel Export**
+  - Export event and member data in Excel format for reporting and analysis.
+
+- **Multi-Admin Support**
+  - Enable multiple admins to manage temple activities collaboratively.
+
+## Tech Stack
+
+- **Frontend**: React Native
+- **Backend**: Firebase
+- **Database**: Firebase Firestore
+- **Storage**: Firebase Storage
+
+## Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/NareshKumar1553/Murugan_Periyasamy.git
+   
+
+2.Navigate to the project directory:
+   ```bash
+      cd SriPeriyaSamyKovil
 ```
 
-## Step 2: Start your Application
-
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
-
-### For Android
-
-```bash
-# using npm
-npm run android
-
-# OR using Yarn
-yarn android
+3.Install dependencies:
+   ```bash
+   npm install
 ```
 
-### For iOS
+4.Set up Firebase:
+- Create a Firebase project at Firebase Console.
+- Add the Firebase configuration to your project.
 
+5.Run the app:
 ```bash
-# using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
+npm start 
 ```
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+## Usage
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+- Event Management: Create and manage events by fetching member data and storing event details.
+- Tax Handling: Add taxes for events and automate accounting tasks.
+- Invoice Generation: Generate, store, and share invoices for events.
+- Hall Booking: Manage hall bookings with an interactive calendar and booking details form.
+- Excel Export: Export data to Excel format for offline use and analysis.
 
-## Step 3: Modifying your App
+## License
 
-Now that you have successfully run the app, let's modify it.
+This project is licensed under the MIT License. See the LICENSE file for details.
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+## Acknowledgements
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+- Developed by [Naresh Kumar S](https://nareshkumar.zgen.tech/)
+- Special thanks to the Sri PeriyaSamy Kamatchi Amman Kovil management team for their support and feedback.
 
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+![Footer 1](https://github.com/NareshKumar1553/Murugan_Periyasamy/assets/89716658/5f93d799-450b-4e2a-8133-3cc5fd410cb4)
