@@ -48,7 +48,7 @@ const GenerateXLS = ({route,navigation}) => {
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
             
             await RNFS.writeFile(path, excelData, 'base64');
-            const downloadPath = `${RNFS.DocumentDirectoryPath}/${fileName}`;
+            const downloadPath = `${RNFS.DownloadDirectoryPath}/${fileName}`;
             await RNFS.moveFile(path, downloadPath);
             console.log('File downloaded successfully!', downloadPath);
             Alert.alert(

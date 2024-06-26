@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import LinearGradient from "react-native-linear-gradient";
 import firestore from '@react-native-firebase/firestore';
 import DatePicker from '@react-native-community/datetimepicker';
+import LoadingAnime from '../animation/LoadingAnime';
 
 const NewEvent = ({navigation}) => {
     const [text, setText] = useState('');
@@ -100,13 +101,14 @@ const NewEvent = ({navigation}) => {
 
     if (isLoading) {
         return (
-            <LinearGradient colors={['#f9f5fa', '#f3e1f7', '#f3e1f7']} style={{flex:1}}>
-                <View style={style.container}>
-                    <StatusBar backgroundColor='#f9f5fa' barStyle="dark-content" />
-                    <ActivityIndicator size="large" color="#0000ff" />
-                    <Text style={style.text}>Creating Event...{'\n'}Please Wait...{'\n'}It will Take few Seconds...</Text>
-                </View>
-            </LinearGradient>
+            <LoadingAnime/>
+            // <LinearGradient colors={['#f9f5fa', '#f3e1f7', '#f3e1f7']} style={{flex:1}}>
+            //     <View style={style.container}>
+            //         <StatusBar backgroundColor='#f9f5fa' barStyle="dark-content" />
+            //         <ActivityIndicator size="large" color="#0000ff" />
+            //         <Text style={style.text}>Creating Event...{'\n'}Please Wait...{'\n'}It will Take few Seconds...</Text>
+            //     </View>
+            // </LinearGradient>
         );
     }
 

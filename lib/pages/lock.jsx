@@ -9,6 +9,8 @@ const LockPage = ({navigation}) => {
     const [pin, setPin] = useState('');
     const [isEventExist, setIsEventExist] = useState(false);
     const [AdminPin, setAdminPin] = useState('0000');
+    const [storedPin, setStoredPin] = useState('7193');
+    
 
     useEffect(() => {
         AsyncStorage.getItem('eventName').then((value) => {
@@ -24,6 +26,18 @@ const LockPage = ({navigation}) => {
             console.log('Error at getting Admin Pin :', error);
         }
         );
+
+        firestore().collection('Admin').doc('UserPin').get().then((doc) => {
+            if (doc.exists) {
+                setStoredPin(doc.data().pin);
+            } else {
+                console.log('No such document!');
+            }
+        }).catch((error) => {
+            console.log('Error at getting Admin Pin :', error);
+        }
+        );
+        
     }, []);
 
     const handlePinChange = (pin) => {

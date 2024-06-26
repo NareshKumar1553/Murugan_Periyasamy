@@ -8,17 +8,21 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const { width } = Dimensions.get('window');
 const HomeScreen = ({ navigation }) => {
 
-    const [name, setName] = useState('Sri Periya Samy Kovil');
+    const [name, setName] = useState('Sri PeriyaSamy Kovil');
     const [loading, setLoading] = useState(true);
 
     const [images, setImages] = useState(['https://firebasestorage.googleapis.com/v0/b/sriperiyasamy-96.appspot.com/o/SriPeriyaSamyKovil%2FFrontView.png?alt=media&token=74abe6bd-7258-4fde-8464-212ab0efaae1','https://firebasestorage.googleapis.com/v0/b/sriperiyasamy-96.appspot.com/o/SriPeriyaSamyKovil%2Fperiyasamy.png?alt=media&token=1127dd60-6900-4df2-a4fb-94a398d21a5c']);
 
     useEffect(() => {
-        const subcribe = firestore().collection('Images').doc('home').onSnapshot((snapshot) => {
+        firestore().collection('Images').doc('home').onSnapshot((snapshot) => {
             if (snapshot.exists) {
-                setImages(snapshot.data().img);
-                setLoading(false);
+                const shuffledImages = snapshot.data().img.sort(() => Math.random() - 0.5);
+                setImages(shuffledImages);
+            } else {
+                console.log('No such document!');
             }
+            setLoading(false);
+            
             AsyncStorage.getItem('name').then((value) => {
                 console.log("Name : ", value);
                 setName(value);
@@ -44,12 +48,11 @@ const HomeScreen = ({ navigation }) => {
                             height={width / 1.3}
                             autoPlay={true}
                             data={images}
-                            scrollAnimationDuration={3000}
+                            scrollAnimationDuration={5000}
                             renderItem={({ item, index }) => (
-
                                 loading ? (
-                                    <View style={styles.item}>
-                                        <ActivityIndicator size="small" color="blue" />
+                                    <View style={styles.loader}>
+                                        <ActivityIndicator size="large" color="pink" />
                                     </View>
                                 ) : (
                                     <View style={styles.item}>
@@ -58,6 +61,8 @@ const HomeScreen = ({ navigation }) => {
                                             style={{ width: '100%', height: '100%', borderRadius: 10 }}
                                             source={{ uri: item }}
                                         />
+
+                                        <Text style={styles.CarouselText}>{index + 1}</Text>
                                     </View>
                                 )
                                 
@@ -105,6 +110,8 @@ const HomeScreen = ({ navigation }) => {
                             <Text style={styles.text}>Hall Booking</Text>
                         </TouchableOpacity>
                     </View>
+
+                    
 
                 </ScrollView>
                     <View style={styles.fabContainer}>
@@ -193,6 +200,20 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#000',
     },
-
-
+    loader: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    CarouselText: {
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
+        fontSize: 15,
+        fontWeight: 'bold',
+        color: 'white',
+        padding: 10,
+        backgroundColor: 'rgba(0,0,0,0.5)',
+    },
+    
 });

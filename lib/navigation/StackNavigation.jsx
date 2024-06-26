@@ -29,6 +29,7 @@ import HallBookingList from "../pages/Hall/HallBookingList";
 import HallRegistration from "../pages/Hall/HallRegistration";
 import BillConfirmation from "../pages/Hall/BillConfirmation";
 import EventBillGeneration from "../pages/Event/EventBillGeneration";
+import LoadingAnime from "../animation/LoadingAnime";
 
 
 const Stack = createNativeStackNavigator();
@@ -78,14 +79,22 @@ export default function StackNavigation() {
                     
                 }}                    
             >   
-                    {!isFirstLaunch && !isEvent ? (
+                    {/* {!isFirstLaunch && !isEvent ? (
                         <Stack.Screen name="Home1" component={HomeScreen} />
                         
                     ) : isEvent ? (
                         <Stack.Screen name="Event1" component={Event} />
                     ) : (
                         <Stack.Screen name="GoogleSign1" component={GoogleAuth} />                        
-                    )}
+                    )} */}
+
+                {isFirstLaunch ? (
+                    <Stack.Screen name="GoogleSign1" component={GoogleAuth} /> 
+                )  : (
+                    <Stack.Screen name="LockScreen1" component={LockPage} />
+                )}
+
+                
 
                 <Stack.Screen name="LockScreen" component={LockPage} />
                 <Stack.Screen name="Home" component={HomeScreen} />
@@ -113,6 +122,7 @@ export default function StackNavigation() {
                 <Stack.Screen name="HallRegistration" component={HallRegistration}  />
                 <Stack.Screen name="BillConfirmation" component={BillConfirmation}  />
                 <Stack.Screen name="EventBillGeneration" component={EventBillGeneration}    />
+                <Stack.Screen name="LoadingAnime" component={LoadingAnime} />
             </Stack.Navigator>
         </NavigationContainer>
     );

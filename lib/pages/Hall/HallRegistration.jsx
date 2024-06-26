@@ -64,7 +64,7 @@ const HallRegistration = ({ navigation, route }) => {
             });
 
         // Navigate to the profile page with the form data as parameters
-        navigation.navigate('BillConfirmation', { name, phoneNumber, email, city, selectedDate, amount,functionName});
+        navigation.replace('BillConfirmation', { name, phoneNumber, email, city, selectedDate, amount,functionName});
     };
 
     return (

@@ -6,6 +6,7 @@ import firebase from '@react-native-firebase/app';
 import storage from '@react-native-firebase/storage';
 import RNFS from 'react-native-fs';
 import SmsAndroid from 'react-native-get-sms-android';
+import LoadingAnime from '../../animation/LoadingAnime';
 
 
 const BillConfirmation = ({ route }) => {
@@ -258,6 +259,7 @@ const BillConfirmation = ({ route }) => {
 
     const uploadBillToFirebaseStorage = async (filePath) => {
         setUploading(true);
+        
         setError(null);
         console.log('Uploading bill to Firebase Storage:', filePath);
         try {
@@ -323,14 +325,21 @@ const BillConfirmation = ({ route }) => {
         return currentDate;
     };
 
+    const downloadBill = async (downloadFileURL) => {
+        console.log('Downloading bill:', downloadFileURL);
+        Linking.openURL(downloadFileURL).catch((err) => console.error('An error occurred', err));
+    };
+
     return (
         <LinearGradient colors={['#f9f5fa', '#f3e1f7', '#f3e1f7']} style={styles.container}>
             <StatusBar backgroundColor="#f9f5fa" barStyle="dark-content" />
 
             {loading ? (
-            <ActivityIndicator style={styles.loading}/> // Show loading indicator while loading
+            console.log('Loading...',loading),
+            <Text style={styles.loading}>Loading...Please be patience!!!</Text>,
+            <LoadingAnime/> 
         ) : error ? (
-            <Text style={styles.error}>Error: {error}</Text> // Show error message if error exists
+            <Text style={styles.error}>Developer Error: {error}, Please be patience. Your data will stored in database. Thank You!!!</Text> // Show error message if error exists
         ) : downloadFileURL ? (
             <View style={styles.container}>
                 <Image source={require('../../../android/app/src/main/res/mipmap-xhdpi/ic_launcher.png')} style={styles.image} />
@@ -349,6 +358,9 @@ const BillConfirmation = ({ route }) => {
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => sendBillToCustomer(downloadFileURL, true, true, {phoneNumber})} style={styles.button}>
                     <Text style={styles.buttonText}>Send Both</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => downloadBill(downloadFileURL)} style={styles.button}>
+                    <Text style={styles.buttonText}>Download Bill</Text>
                 </TouchableOpacity>
                 
             </View>
@@ -390,6 +402,8 @@ const styles = StyleSheet.create({
     },
     loading: {
         marginTop: 20,
+        fontSize: 16,
+        color: 'black',
     },
     error: {
         color: 'red',
